@@ -2,7 +2,7 @@
 @inject IPersonDataService PersonDataService
 
 <div class="container">
-    <div class="h5">Persons</div>
+    <div class="h5 text-muted">Persons</div>
 
     @if (PersonFormMode is not FormMode.Add && PersonFormMode is not FormMode.Edit)
     {
@@ -15,7 +15,7 @@
 
     @if ((PersonFormMode == FormMode.Add || PersonFormMode == FormMode.Edit) && Person is not null)
     {
-        <PersonEditor Person="Person"/>
+        <PersonEditor Person="Person" />
     }
 
 </div>

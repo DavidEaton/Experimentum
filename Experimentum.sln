@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Experimentum.Client", "Experimentum.Client\Experimentum.Client.csproj", "{10CC228D-ABBB-41C1-8EBA-F0F576ADE49B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Experimentum.Client", "Experimentum.Client\Experimentum.Client.csproj", "{10CC228D-ABBB-41C1-8EBA-F0F576ADE49B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Experimentum.Api", "Experimentum.Api\Experimentum.Api.csproj", "{1292AB69-FFF5-4AC0-890A-974429703399}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Experimentum.Api", "Experimentum.Api\Experimentum.Api.csproj", "{1292AB69-FFF5-4AC0-890A-974429703399}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Experimentum.Domain", "Experimentum.Domain\Experimentum.Domain.csproj", "{11B76F10-109C-4C56-B77A-BFF6831737C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Experimentum.Domain", "Experimentum.Domain\Experimentum.Domain.csproj", "{11B76F10-109C-4C56-B77A-BFF6831737C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Experimentum.Shared", "Experimentum.Shared\Experimentum.Shared.csproj", "{34F2EECD-0EF0-4988-B74F-84EA54203E2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Experimentum.Shared", "Experimentum.Shared\Experimentum.Shared.csproj", "{34F2EECD-0EF0-4988-B74F-84EA54203E2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

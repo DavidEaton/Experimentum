@@ -24,8 +24,14 @@ services.AddDbContext<ApplicationDbContext>(options =>
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    dbContext.EnsureSeedData();
+}
+
 app.UseHttpsRedirection();
-// Call UseCors before UseRouting and UseEndpoints.
+// Call UseCors BEFORE UseRouting and UseEndpoints.
 app.UseCors("AllowAll");
 
 app.UseRouting();

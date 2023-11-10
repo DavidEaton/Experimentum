@@ -20,6 +20,13 @@ namespace Experimentum.Api.Data
 
             modelBuilder.ApplyConfiguration(new PersonConfiguration());
         }
+
+        public void EnsureSeedData()
+        {
+            Database.Migrate();
+            SeedData.Initialize(this);
+        }
+
         public DbSet<Person> Persons { get; set; }
 
     }

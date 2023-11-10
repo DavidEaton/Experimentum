@@ -62,3 +62,9 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+.small-gray-label {
+    color: gray;
+    font-size: 0.875em; /* Bootstrap's default small font size */
+    line-height: 1.5; /* Bootstrap's default line height */
+}
