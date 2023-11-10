@@ -1,0 +1,10 @@
+﻿<h3>Person Editor</h3>
+Person.id: @Person?.Id
+Person.Name.DisplayName: @Person?.Name.ToString()
+
+
+@code {
+    [Parameter]
+    public PersonRequest? Person { get; set; }
+
+}

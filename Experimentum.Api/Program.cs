@@ -1,17 +1,39 @@
+using Experimentum.Api.Data;
+using Experimentum.Api.Features.Persons;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
 
-// Add services to the container.
+services.AddControllers();
+services.TryAddScoped<IPersonRepository, PersonRepository>();
 
-builder.Services.AddControllers();
+services.AddHealthChecks();
+services.AddCors(o => o.AddPolicy("AllowAll", policyBuilder =>
+{
+    policyBuilder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+}));
+
+services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration[$"DatabaseSettings:MigrationsConnection"])
+    .EnableSensitiveDataLogging()
+    .LogTo(Console.WriteLine, LogLevel.Information));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-
 app.UseHttpsRedirection();
+// Call UseCors before UseRouting and UseEndpoints.
+app.UseCors("AllowAll");
 
-app.UseAuthorization();
+app.UseRouting();
 
-app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapHealthChecks("/healthcheck");
+});
 
 app.Run();

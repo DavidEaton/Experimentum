@@ -1,0 +1,48 @@
+﻿@if (Persons != null && Persons.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Birthday</th>
+                <th>FavoriteColor</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var person in Persons)
+            {
+                <tr @onclick="() => EditPersonRow(person?.Id ?? 0)">
+                    <td>@person?.Id</td>
+                    <td>@person?.Name.DisplayName</td>
+                    <td>@person?.Gender</td>
+                    <td>@person?.Birthday?.ToString("MM/dd/yyyy")</td>
+                    <td>@person?.FavoriteColor</td>
+                    <td>@person?.Email?.Address</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No persons to display.</p>
+}
+
+@code {
+    [Parameter]
+    public IReadOnlyList<PersonResponse?> Persons { get; set; }
+
+    [Parameter]
+    public EventCallback<long> OnPersonEdit { get; set; }
+
+    private async Task EditPersonRow(long id)
+    {
+        if (OnPersonEdit.HasDelegate)
+        {
+            await OnPersonEdit.InvokeAsync(id);
+        }
+    }
+}

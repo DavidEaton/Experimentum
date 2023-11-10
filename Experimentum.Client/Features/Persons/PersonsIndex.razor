@@ -1,0 +1,22 @@
+﻿@page "/persons"
+@inject IPersonDataService PersonDataService
+
+<div class="container">
+    <div class="h5">Persons</div>
+
+    @if (PersonFormMode is not FormMode.Add && PersonFormMode is not FormMode.Edit)
+    {
+        @if (Persons is not null)
+        {
+            <PersonsGrid Persons="Persons"
+                         OnPersonEdit="EditPerson" />
+        }
+    }
+
+    @if ((PersonFormMode == FormMode.Add || PersonFormMode == FormMode.Edit) && Person is not null)
+    {
+        <PersonEditor Person="Person"/>
+    }
+
+</div>
+
