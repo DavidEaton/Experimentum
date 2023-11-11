@@ -10,7 +10,7 @@ namespace Experimentum.Client.Features.Persons
         [Parameter] public EventCallback Close { get; set; }
         [Parameter] public EventCallback Save { get; set; }
         private FluentValidationValidator? _fluentValidationValidator;
-        private async Task HandleValidSubmit()
+        private async Task SubmitFormAsync()
         {
             if (await _fluentValidationValidator!.ValidateAsync())
             {
@@ -18,7 +18,7 @@ namespace Experimentum.Client.Features.Persons
             }
         }
 
-        private void PartialValidate()
-                => Console.WriteLine($"Partial validation result : {_fluentValidationValidator?.Validate()}");
+        private async Task PartialValidate()
+                => Console.WriteLine($"Partial validation result : {await _fluentValidationValidator?.ValidateAsync()}");
     }
 }
