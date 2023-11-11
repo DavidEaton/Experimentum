@@ -6,6 +6,7 @@ namespace Experimentum.Domain.Features
     public class Person : Entity
     {
         public static readonly string RequiredMessage = "Please include all required items.";
+        public static readonly string InvalidBirthdayMessage = $"Birth date was invalid";
         public static readonly string InvalidValueMessage = $"Value was invalid";
         public static readonly int FavoriteColorMinimumLength = 3;
         public static readonly int FavoriteColorMaximumLength = 25;
@@ -33,11 +34,11 @@ namespace Experimentum.Domain.Features
                 return Result.Failure<Person>(RequiredMessage);
 
             if (!Enum.IsDefined(typeof(Gender), gender))
-                return Result.Failure<Person>(InvalidValueMessage);
+                return Result.Failure<Person>(RequiredMessage);
 
             if (birthday.HasValue)
                 if (!IsValidAge(birthday))
-                    return Result.Failure<Person>(InvalidValueMessage);
+                    return Result.Failure<Person>(InvalidBirthdayMessage);
 
             favoriteColor = (favoriteColor ?? string.Empty).Trim();
 
@@ -45,7 +46,7 @@ namespace Experimentum.Domain.Features
                 return Result.Failure<Person>(FavoriteColorMinimumLengthMessage);
 
             if (favoriteColor.Length > FavoriteColorMaximumLength)
-                return Result.Failure<Person>(FavoriteColorMinimumLengthMessage);
+                return Result.Failure<Person>(FavoriteColorMaximumLengthMessage);
 
             if (email is null)
                 return Result.Failure<Person>(RequiredMessage);
@@ -92,7 +93,7 @@ namespace Experimentum.Domain.Features
         public Result<DateTime?> SetBirthday(DateTime? birthday)
         {
             if (!IsValidAge(birthday))
-                return Result.Failure<DateTime?>(InvalidValueMessage);
+                return Result.Failure<DateTime?>(InvalidBirthdayMessage);
 
             return Result.Success(Birthday = birthday);
         }

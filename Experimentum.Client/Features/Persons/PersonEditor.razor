@@ -1,23 +1,24 @@
 ﻿<h3 class="text-secondary">Add/Edit Person</h3>
 <EditForm Model="@Person" OnValidSubmit="@HandleValidSubmit" class="mb-3">
-    <FluentValidationValidator />
-    <ValidationSummary />
+    @*     <DataAnnotationsValidator /> *@
+    <FluentValidationValidator @ref="_fluentValidationValidator" DisableAssemblyScanning="@true" />
     <div class="mb-3">
         <label for="lastName" class="form-label small-gray-label">Last Name</label>
-        <InputText id="lastName" class="form-control" @bind-Value="Person.Name.LastName" onblur="@ValidateField" />
-        <ValidationMessage For="@(() => Person.Name.LastName)" class="text-danger" />
+        <InputText id="lastName" class="form-control" @bind-Value="Person.Name.LastName" />
+        @*         <ValidationMessage For="@(() => Person.Name.LastName)" class="text-danger" />
+        *@
     </div>
 
     <div class="mb-3">
         <label for="firstName" class="form-label small-gray-label">First Name</label>
         <InputText id="firstName" class="form-control" @bind-Value="Person.Name.FirstName" />
-        <ValidationMessage For="@(() => Person.Name.FirstName)" class="text-danger" />
+        @* <ValidationMessage For="@(() => Person.Name.FirstName)" class="text-danger" /> *@
     </div>
 
     <div class="mb-3">
         <label for="middleName" class="form-label small-gray-label">Middle Name</label>
         <InputText id="middleName" class="form-control" @bind-Value="Person.Name.MiddleName" />
-        <ValidationMessage For="@(() => Person.Name.MiddleName)" class="text-danger" />
+        @* <ValidationMessage For="@(() => Person.Name.MiddleName)" class="text-danger" /> *@
     </div>
 
     <div class="mb-3">
@@ -28,26 +29,31 @@
                 <option value="@gender">@gender</option>
             }
         </InputSelect>
-        <ValidationMessage For="@(() => Person.Gender)" class="text-danger" />
+        @* <ValidationMessage For="@(() => Person.Gender)" class="text-danger" /> *@
     </div>
 
     <div class="mb-3">
         <label for="birthday" class="form-label small-gray-label">Birthday</label>
-        <InputDate id="birthday" class="form-control" @bind-Value="Person.Birthday" />
-        <ValidationMessage For="@(() => Person.Birthday)" class="text-danger" />
+        <InputDate id="birthday" class="form-control" @bind-Value="Person.Birthday" onblur="@PartialValidate" />
+        <ValidationMessage For=@( () => Person.Birthday ) class="text-danger" />
+
     </div>
 
     <div class="mb-3">
         <label for="favoriteColor" class="form-label small-gray-label">Favorite Color</label>
-        <InputText id="favoriteColor" class="form-control" @bind-Value="Person.FavoriteColor" />
-        <ValidationMessage For="@(() => Person.FavoriteColor)" class="text-danger" />
+        <InputText id="favoriteColor" class="form-control" @bind-Value="Person.FavoriteColor" onblur="@PartialValidate" />
+        <ValidationMessage For=@( () => Person.FavoriteColor ) class="text-danger" />
     </div>
 
     <div class="mb-3">
         <label for="email" class="form-label small-gray-label">Email</label>
         <InputText id="email" class="form-control" @bind-Value="Person.Email.Address" />
-        <ValidationMessage For="@(() => Person.Email.Address)" class="text-danger" />
+        @* <ValidationMessage For="@(() => Person.Email.Address)" class="text-danger" /> *@
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="d-flex align-items-start justify-content-start">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <ValidationSummary />
+    </div>
+
 </EditForm>

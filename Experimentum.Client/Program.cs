@@ -1,5 +1,7 @@
 using Experimentum.Client;
 using Experimentum.Client.Features.Persons;
+using Experimentum.Shared.Features.Persons;
+using FluentValidation;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -10,5 +12,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddHttpClient<IPersonDataService, PersonDataService>(
     client => client.BaseAddress = new Uri(apiUrl));
+
+builder.Services.AddTransient<IValidator<PersonRequest>, PersonValidator>();
 
 await builder.Build().RunAsync();

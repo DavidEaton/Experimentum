@@ -10,6 +10,8 @@ namespace Experimentum.Shared.Features.Persons
         public PersonNameRequest Name { get; set; } = new();
         public Gender Gender { get; set; } = Gender.Other;
         public DateTime? Birthday { get; set; }
+
+        //[Range(3, 25, ErrorMessage = "Favorite Color must be between 3 and 25 characters.")]
         public string FavoriteColor { get; set; } = string.Empty;
         public EmailRequest Email { get; set; } = new();
     }
