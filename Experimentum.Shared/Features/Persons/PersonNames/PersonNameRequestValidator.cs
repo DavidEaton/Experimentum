@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace Experimentum.Shared.Features.Persons.PersonNames
 {
-    public class PersonNameValidator : AbstractValidator<PersonNameRequest>
+    public class PersonNameRequestValidator : AbstractValidator<PersonNameRequest>
     {
-        public PersonNameValidator()
+        public PersonNameRequestValidator()
         {
             RuleFor(personName => personName)
             .MustBeValueObject(

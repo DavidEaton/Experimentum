@@ -6,15 +6,15 @@ using FluentValidation;
 
 namespace Experimentum.Shared.Features.Persons
 {
-    public class PersonValidator : AbstractValidator<PersonRequest>
+    public class PersonRequestValidator : AbstractValidator<PersonRequest>
     {
-        public PersonValidator()
+        public PersonRequestValidator()
         {
             RuleFor(person => person.Name)
-                .SetValidator(new PersonNameValidator());
+                .SetValidator(new PersonNameRequestValidator());
 
             RuleFor(person => person.Email)
-                .SetValidator(new EmailValidator());
+                .SetValidator(new EmailRequestValidator());
 
             RuleFor(person => person)
                 .MustBeEntity((person) =>

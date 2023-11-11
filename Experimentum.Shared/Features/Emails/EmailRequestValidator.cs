@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace Experimentum.Shared.Features.Emails
 {
-    public class EmailValidator : AbstractValidator<EmailRequest>
+    public class EmailRequestValidator : AbstractValidator<EmailRequest>
     {
-        public EmailValidator()
+        public EmailRequestValidator()
         {
             RuleFor(email => email)
             .MustBeValueObject(

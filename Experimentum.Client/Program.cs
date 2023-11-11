@@ -13,6 +13,6 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddHttpClient<IPersonDataService, PersonDataService>(
     client => client.BaseAddress = new Uri(apiUrl));
 
-builder.Services.AddTransient<IValidator<PersonRequest>, PersonValidator>();
+builder.Services.AddTransient<IValidator<PersonRequest>, PersonRequestValidator>();
 
 await builder.Build().RunAsync();
