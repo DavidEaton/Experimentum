@@ -11,6 +11,8 @@
             <PersonsGrid Persons="Persons"
                          OnPersonEdit="EditPerson" />
         }
+
+        <button class="btn btn-primary" @onclick="AddPerson">Add Person</button>
     }
 
     @if ((PersonFormMode == FormMode.Add || PersonFormMode == FormMode.Edit) && Person is not null)

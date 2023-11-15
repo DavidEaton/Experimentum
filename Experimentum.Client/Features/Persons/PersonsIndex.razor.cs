@@ -33,7 +33,7 @@ namespace Experimentum.Client.Features.Persons
         private void AddPerson()
         {
             PersonFormMode = FormMode.Add;
-
+            Person = new PersonRequest();
         }
     }
 }

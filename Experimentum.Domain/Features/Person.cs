@@ -5,7 +5,9 @@ namespace Experimentum.Domain.Features
 {
     public class Person : Entity
     {
-        public static readonly string RequiredMessage = "Please include all required items.";
+        public static readonly string RequiredMessage = "Please enter all required item.";
+        public static readonly string EmailRequiredMessage = "Please enter a valid email address.";
+        public static readonly string NameRequiredMessage = "Please enter a Name.";
         public static readonly string InvalidBirthdayMessage = $"Birth date was invalid";
         public static readonly string InvalidValueMessage = $"Value was invalid";
         public static readonly int FavoriteColorMinimumLength = 3;
@@ -31,7 +33,7 @@ namespace Experimentum.Domain.Features
         public static Result<Person> Create(PersonName name, Gender gender, DateTime? birthday, string favoriteColor, Email email)
         {
             if (name is null)
-                return Result.Failure<Person>(RequiredMessage);
+                return Result.Failure<Person>(NameRequiredMessage);
 
             if (!Enum.IsDefined(typeof(Gender), gender))
                 return Result.Failure<Person>(RequiredMessage);
@@ -49,7 +51,7 @@ namespace Experimentum.Domain.Features
                 return Result.Failure<Person>(FavoriteColorMaximumLengthMessage);
 
             if (email is null)
-                return Result.Failure<Person>(RequiredMessage);
+                return Result.Failure<Person>(EmailRequiredMessage);
 
             return Result.Success(new Person(name, gender, birthday, favoriteColor, email));
 
@@ -77,7 +79,7 @@ namespace Experimentum.Domain.Features
         public Result<PersonName> SetName(PersonName name)
         {
             if (name is null)
-                return Result.Failure<PersonName>(RequiredMessage);
+                return Result.Failure<PersonName>(NameRequiredMessage);
 
             return Result.Success(Name = name);
         }
@@ -101,7 +103,7 @@ namespace Experimentum.Domain.Features
         public Result<Email> SetEmail(Email email)
         {
             if (email is null)
-                return Result.Failure<Email>(RequiredMessage);
+                return Result.Failure<Email>(EmailRequiredMessage);
 
             return Result.Success(Email = email);
         }

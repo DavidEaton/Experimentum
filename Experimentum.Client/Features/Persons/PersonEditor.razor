@@ -1,6 +1,6 @@
 ﻿<h3 class="text-secondary">Add/Edit Person</h3>
 <EditForm Model="@Person" OnSubmit="@SubmitFormAsync" class="mb-3">
-    <FluentValidationValidator @ref="_fluentValidationValidator" DisableAssemblyScanning="@true" />
+    <FluentValidationValidator DisableAssemblyScanning="@true" @ref="_fluentValidationValidator" />
     <div class="mb-3">
         <label for="lastName" class="form-label small-gray-label">Last Name</label>
         <InputText id="lastName" class="form-control" @bind-Value="Person.Name.LastName" />
@@ -41,7 +41,7 @@
     <div class="mb-3">
         <label for="favoriteColor" class="form-label small-gray-label">Favorite Color</label>
         <InputText id="favoriteColor" class="form-control" @bind-Value="Person.FavoriteColor" onblur="@PartialValidate" />
-        <ValidationMessage For=@( () => Person.FavoriteColor ) class="text-danger" />
+        <ValidationMessage For="@( () => Person.FavoriteColor )" class="text-danger" />
 
     </div>
 

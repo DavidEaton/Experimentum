@@ -10,10 +10,14 @@ namespace Experimentum.Shared.Features.Persons
     {
         public PersonRequestValidator()
         {
+            ClassLevelCascadeMode = CascadeMode.Continue;
+
             RuleFor(person => person.Name)
+                .Cascade(CascadeMode.Continue)
                 .SetValidator(new PersonNameRequestValidator());
 
             RuleFor(person => person.Email)
+                .Cascade(CascadeMode.Continue)
                 .SetValidator(new EmailRequestValidator());
 
             RuleFor(person => person)
