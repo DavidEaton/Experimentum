@@ -6,19 +6,25 @@ namespace Experimentum.Client.Features.Persons
 {
     public partial class PersonEditor : ComponentBase
     {
-        [Parameter] public PersonRequest? Person { get; set; }
+        //[Parameter] public PersonRequest? Person { get; set; }
+        private readonly PersonRequest? Person = new();
         [Parameter] public EventCallback Close { get; set; }
         [Parameter] public EventCallback Save { get; set; }
         private FluentValidationValidator? _fluentValidationValidator;
         private async Task SubmitFormAsync()
         {
-            if (await _fluentValidationValidator!.ValidateAsync())
+            var validationResult = await _fluentValidationValidator!.ValidateAsync();
+
+            if (validationResult)
             {
                 Console.WriteLine("Form Submitted Successfully!");
             }
         }
 
-        private async Task PartialValidate()
-                => Console.WriteLine($"Partial validation result : {await _fluentValidationValidator?.ValidateAsync()}");
+        private void PartialValidate()
+        {
+            var validationResult = _fluentValidationValidator!.Validate(options => options.IncludeAllRuleSets());
+            Console.WriteLine($"Partial validation result : {validationResult}");
+        }
     }
 }

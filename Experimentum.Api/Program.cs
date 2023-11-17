@@ -15,7 +15,10 @@ services.AddControllers()
     options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
 });
 services.AddFluentValidationAutoValidation();
+services.AddFluentValidationClientsideAdapters();
+// Register all validators in a specific assembly by using Service Collection extensions
 services.AddValidatorsFromAssemblyContaining<PersonRequestValidator>();
+
 services.TryAddScoped<IPersonRepository, PersonRepository>();
 
 services.AddHealthChecks();

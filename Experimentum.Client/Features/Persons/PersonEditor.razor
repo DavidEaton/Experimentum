@@ -1,58 +1,58 @@
 ﻿<h3 class="text-secondary">Add/Edit Person</h3>
-<EditForm Model="@Person" OnSubmit="@SubmitFormAsync" class="mb-3">
-    <FluentValidationValidator DisableAssemblyScanning="@true" @ref="_fluentValidationValidator" />
-    <div class="mb-3">
-        <label for="lastName" class="form-label small-gray-label">Last Name</label>
-        <InputText id="lastName" class="form-control" @bind-Value="Person.Name.LastName" />
-        <ValidationMessage For="@(() => Person.Name.LastName)" class="text-danger" />
+<EditForm Model="@Person" OnSubmit="@SubmitFormAsync">
+    <FluentValidationValidator @ref="_fluentValidationValidator" Options="@(options => options.IncludeAllRuleSets())" />
+    <div >
+        <label for="lastName" >Last Name</label>
+        <InputText id="lastName" @bind-Value="Person.Name.LastName" />
+        <ValidationMessage For="@(() => Person.Name.LastName)" />
 
     </div>
 
-    <div class="mb-3">
-        <label for="firstName" class="form-label small-gray-label">First Name</label>
-        <InputText id="firstName" class="form-control" @bind-Value="Person.Name.FirstName" />
-        <ValidationMessage For="@(() => Person.Name.FirstName)" class="text-danger" />
+    <div >
+        <label for="firstName" >First Name</label>
+        <InputText id="firstName" @bind-Value="Person.Name.FirstName" />
+        <ValidationMessage For="@(() => Person.Name.FirstName)" />
     </div>
 
-    <div class="mb-3">
-        <label for="middleName" class="form-label small-gray-label">Middle Name</label>
-        <InputText id="middleName" class="form-control" @bind-Value="Person.Name.MiddleName" />
-        <ValidationMessage For="@(() => Person.Name.MiddleName)" class="text-danger" />
+    <div >
+        <label for="middleName" >Middle Name</label>
+        <InputText id="middleName" @bind-Value="Person.Name.MiddleName" />
+        <ValidationMessage For="@(() => Person.Name.MiddleName)" />
     </div>
 
-    <div class="mb-3">
-        <label for="gender" class="form-label small-gray-label">Gender</label>
-        <InputSelect id="gender" class="form-select" @bind-Value="Person.Gender">
+    <div >
+        <label for="gender" >Gender</label>
+        <InputSelect id="gender" @bind-Value="Person.Gender">
             @foreach (var gender in Enum.GetValues<Gender>())
             {
                 <option value="@gender">@gender</option>
             }
         </InputSelect>
-        <ValidationMessage For="@(() => Person.Gender)" class="text-danger" />
+        <ValidationMessage For="@(() => Person.Gender)" />
     </div>
 
-    <div class="mb-3">
-        <label for="birthday" class="form-label small-gray-label">Birthday</label>
-        <InputDate id="birthday" class="form-control" @bind-Value="Person.Birthday" onblur="@PartialValidate" />
-        <ValidationMessage For=@( () => Person.Birthday ) class="text-danger" />
-
-    </div>
-
-    <div class="mb-3">
-        <label for="favoriteColor" class="form-label small-gray-label">Favorite Color</label>
-        <InputText id="favoriteColor" class="form-control" @bind-Value="Person.FavoriteColor" onblur="@PartialValidate" />
-        <ValidationMessage For="@( () => Person.FavoriteColor )" class="text-danger" />
+    <div >
+        <label for="birthday" >Birthday</label>
+        <InputDate id="birthday" @bind-Value="Person.Birthday" onblur="@PartialValidate" />
+        <ValidationMessage For=@( () => Person.Birthday ) />
 
     </div>
 
-    <div class="mb-3">
-        <label for="email" class="form-label small-gray-label">Email</label>
-        <InputText id="email" class="form-control" @bind-Value="Person.Email.Address" onblur="@PartialValidate" />
-        <ValidationMessage For="@(() => Person.Email.Address)" class="text-danger" />
+    <div >
+        <label for="favoriteColor" >Favorite Color</label>
+        <InputText id="favoriteColor" @bind-Value="Person.FavoriteColor" onblur="@PartialValidate" />
+        <ValidationMessage For="@( () => Person.FavoriteColor )" />
+
     </div>
 
-    <div class="d-flex align-items-start justify-content-start">
-        <button type="submit" class="btn btn-primary">Submit</button>
+    <div >
+        <label for="email" >Email</label>
+        <InputText id="email" @bind-Value="Person.Email.Address" onblur="@PartialValidate" />
+        <ValidationMessage For="@(() => Person.Email.Address)" />
+    </div>
+
+    <div >
+        <button type="submit" >Submit</button>
         <ValidationSummary />
     </div>
 
