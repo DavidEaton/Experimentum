@@ -1,58 +1,56 @@
 ﻿<h3 class="text-secondary">Add/Edit Person</h3>
-<EditForm Model="@Person" OnSubmit="@SubmitFormAsync">
-    <FluentValidationValidator @ref="_fluentValidationValidator" Options="@(options => options.IncludeAllRuleSets())" />
-    <div >
-        <label for="lastName" >Last Name</label>
-        <InputText id="lastName" @bind-Value="Person.Name.LastName" />
-        <ValidationMessage For="@(() => Person.Name.LastName)" />
-
+<EditForm Model="@person" OnSubmit="@SubmitForm" class="mb-3">
+    <div class="mb-3">
+        <label for="lastName" class="form-label small-gray-label">Last Name</label>
+        <InputText id="lastName" class="form-control" @bind-Value="@person.Name.LastName" />
+        <ValidationMessage For="@(() => person.Name.LastName)" />
     </div>
 
-    <div >
-        <label for="firstName" >First Name</label>
-        <InputText id="firstName" @bind-Value="Person.Name.FirstName" />
-        <ValidationMessage For="@(() => Person.Name.FirstName)" />
+    <div class="mb-3">
+        <label for="firstName" class="form-label small-gray-label">First Name</label>
+        <InputText id="firstName" class="form-control" @bind-Value="@person.Name.FirstName" />
+        <ValidationMessage For="@(() => person.Name.FirstName)" />
     </div>
 
-    <div >
-        <label for="middleName" >Middle Name</label>
-        <InputText id="middleName" @bind-Value="Person.Name.MiddleName" />
-        <ValidationMessage For="@(() => Person.Name.MiddleName)" />
+    <div class="mb-3">
+        <label for="middleName" class="form-label small-gray-label">Middle Name</label>
+        <InputText id="middleName" class="form-control" @bind-Value="@person.Name.MiddleName" />
+        <ValidationMessage For="@(() => person.Name.MiddleName)" />
     </div>
 
-    <div >
-        <label for="gender" >Gender</label>
-        <InputSelect id="gender" @bind-Value="Person.Gender">
+    <div class="mb-3">
+        <label for="gender" class="form-label small-gray-label">Gender</label>
+        <InputSelect id="gender" class="form-control" @bind-Value="@person.Gender">
             @foreach (var gender in Enum.GetValues<Gender>())
             {
                 <option value="@gender">@gender</option>
             }
         </InputSelect>
-        <ValidationMessage For="@(() => Person.Gender)" />
+        <ValidationMessage For="@(() => person.Gender)" />
     </div>
 
-    <div >
-        <label for="birthday" >Birthday</label>
-        <InputDate id="birthday" @bind-Value="Person.Birthday" onblur="@PartialValidate" />
-        <ValidationMessage For=@( () => Person.Birthday ) />
-
-    </div>
-
-    <div >
-        <label for="favoriteColor" >Favorite Color</label>
-        <InputText id="favoriteColor" @bind-Value="Person.FavoriteColor" onblur="@PartialValidate" />
-        <ValidationMessage For="@( () => Person.FavoriteColor )" />
+    <div class="mb-3">
+        <label for="birthday" class="form-label small-gray-label">Birthday</label>
+        <InputDate id="birthday" class="form-control" @bind-Value="@person.Birthday" @onblur="@PartialValidate" />
+        <ValidationMessage For=@( () => person.Birthday ) />
 
     </div>
 
-    <div >
-        <label for="email" >Email</label>
-        <InputText id="email" @bind-Value="Person.Email.Address" onblur="@PartialValidate" />
-        <ValidationMessage For="@(() => Person.Email.Address)" />
+    <div class="mb-3">
+        <label for="favoriteColor" class="form-label small-gray-label">Favorite Color</label>
+        <InputText id="favoriteColor" class="form-control" @bind-Value="@person.FavoriteColor" @onblur="@PartialValidate" />
+        <ValidationMessage For="@( () => person.FavoriteColor )" />
+
     </div>
 
-    <div >
-        <button type="submit" >Submit</button>
+    <div class="mb-3">
+        <label for="email" class="form-label small-gray-label">Email</label>
+        <InputText id="email" class="@EmailInputCssClass" @bind-Value="@person.Email.Address" @onblur="@PartialValidate" />
+        <label class="text-danger">@emailValidationMessage</label>
+     </div>
+
+    <div class="d-flex align-items-start justify-content-start">
+        <button type="submit" class="btn btn-primary">Submit</button>
         <ValidationSummary />
     </div>
 
