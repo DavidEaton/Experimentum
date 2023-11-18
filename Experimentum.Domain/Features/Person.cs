@@ -32,30 +32,33 @@ namespace Experimentum.Domain.Features
 
         public static Result<Person> Create(PersonName name, Gender gender, DateTime? birthday, string favoriteColor, Email email)
         {
+            var errors = new List<string>();
+
             if (name is null)
-                return Result.Failure<Person>(NameRequiredMessage);
+                errors.Add(NameRequiredMessage);
 
             if (!Enum.IsDefined(typeof(Gender), gender))
-                return Result.Failure<Person>(RequiredMessage);
+                errors.Add(RequiredMessage);
 
-            if (birthday.HasValue)
-                if (!IsValidAge(birthday))
-                    return Result.Failure<Person>(InvalidBirthdayMessage);
+            if (birthday.HasValue && !IsValidAge(birthday))
+                errors.Add(InvalidBirthdayMessage);
 
             favoriteColor = (favoriteColor ?? string.Empty).Trim();
-
             if (favoriteColor.Length < FavoriteColorMinimumLength)
-                return Result.Failure<Person>(FavoriteColorMinimumLengthMessage);
+                errors.Add(FavoriteColorMinimumLengthMessage);
 
             if (favoriteColor.Length > FavoriteColorMaximumLength)
-                return Result.Failure<Person>(FavoriteColorMaximumLengthMessage);
+                errors.Add(FavoriteColorMaximumLengthMessage);
 
             if (email is null)
-                return Result.Failure<Person>(EmailRequiredMessage);
+                errors.Add(EmailRequiredMessage);
+
+            if (errors.Count > 0)
+                return Result.Failure<Person>(string.Join("; ", errors));
 
             return Result.Success(new Person(name, gender, birthday, favoriteColor, email));
-
         }
+
         protected static bool IsValidAge(DateTime? birthDate)
         {
             if (birthDate is null)
@@ -110,15 +113,20 @@ namespace Experimentum.Domain.Features
 
         public Result<string> SetFavoriteColor(string favoriteColor)
         {
+            var errors = new List<string>();
             favoriteColor = (favoriteColor ?? string.Empty).Trim();
 
             if (favoriteColor.Length < FavoriteColorMinimumLength)
-                return Result.Failure<string>(FavoriteColorMinimumLengthMessage);
+                errors.Add(FavoriteColorMinimumLengthMessage);
 
             if (favoriteColor.Length > FavoriteColorMaximumLength)
-                return Result.Failure<string>(FavoriteColorMinimumLengthMessage);
+                errors.Add(FavoriteColorMaximumLengthMessage);
 
-            return Result.Success(FavoriteColor = favoriteColor);
+            if (errors.Count > 0)
+                return Result.Failure<string>(string.Join("; ", errors));
+
+            FavoriteColor = favoriteColor;
+            return Result.Success(FavoriteColor);
         }
 
         protected Person() { }
