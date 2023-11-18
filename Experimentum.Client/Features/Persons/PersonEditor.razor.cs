@@ -39,28 +39,49 @@ namespace Experimentum.Client.Features.Persons
             ValidateForm();
         }
 
-        private void PartialValidate()
-        {
-            ValidateForm();
-        }
-
         private void ValidateField(string propertyName, Action<string> updateValidationMessage)
         {
             var validationResult = PersonValidator?.Validate(person);
 
-            if (validationResult is null || validationResult.IsValid)
+            if (validationResult == null || validationResult.IsValid)
             {
                 updateValidationMessage(string.Empty);
             }
             else
             {
-                var validationMessage = validationResult.Errors
-                    .FirstOrDefault(error => error.PropertyName == propertyName &&
-                                             !string.IsNullOrWhiteSpace(error.ErrorMessage))
-                    ?.ErrorMessage ?? string.Empty;
+                string validationMessage = string.Empty;
+                foreach (var error in validationResult.Errors)
+                {
+                    if ((error.PropertyName == propertyName || error.ErrorMessage.Contains(GetSpacedPropertyName(error.PropertyName))) && !string.IsNullOrWhiteSpace(error.ErrorMessage))
+                    {
+                        validationMessage = error.ErrorMessage;
+                        break; // Exit the loop after finding the first relevant error
+                    }
+                }
 
                 updateValidationMessage(validationMessage);
             }
+
+        }
+
+        private string GetSpacedPropertyName(string propertyName)
+        {
+            return string.Concat(propertyName.Select((c, i) => i > 0 && char.IsUpper(c) ? $" {c}" : c.ToString()));
+        }
+
+        private void ValidateLastName()
+        {
+            ValidateField(nameof(person.Name.LastName), message => lastNameValidationMessage = message);
+        }
+
+        private void ValidateFirstName()
+        {
+            ValidateField(nameof(person.Name.FirstName), message => firstNameValidationMessage = message);
+        }
+
+        private void ValidateMiddleName()
+        {
+            ValidateField(nameof(person.Name.MiddleName), message => middleNameValidationMessage = message);
         }
 
         private void ValidateGender()
@@ -165,6 +186,9 @@ namespace Experimentum.Client.Features.Persons
         private string BirthdayInputCssClass => GetInputCssClass(birthdayValidationMessage);
         private string FavoriteColorInputCssClass => GetInputCssClass(favoriteColorValidationMessage);
         private string EmailInputCssClass => GetInputCssClass(emailValidationMessage);
+        private string LastNameInputCssClass => GetInputCssClass(lastNameValidationMessage);
+        private string FirstNameInputCssClass => GetInputCssClass(firstNameValidationMessage);
+        private string MiddleNameInputCssClass => GetInputCssClass(middleNameValidationMessage);
 
         private string GetInputCssClass(string validationMessage) =>
             !string.IsNullOrWhiteSpace(validationMessage) ? "form-control is-invalid" : "form-control";

@@ -7,19 +7,19 @@
 
     <div class="mb-3">
         <label for="lastName" class="form-label small-gray-label">Last Name</label>
-        <InputText id="lastName" class="form-control" @bind-Value="@person.Name.LastName" />
+        <InputText id="lastName" class="@LastNameInputCssClass" @bind-Value="@person.Name.LastName" @onblur="@ValidateLastName" />
         <label class="text-danger">@lastNameValidationMessage</label>
     </div>
 
     <div class="mb-3">
         <label for="firstName" class="form-label small-gray-label">First Name</label>
-        <InputText id="firstName" class="form-control" @bind-Value="@person.Name.FirstName" />
+        <InputText id="firstName" class="@FirstNameInputCssClass" @bind-Value="@person.Name.FirstName" @onblur="@ValidateFirstName" />
         <label class="text-danger">@firstNameValidationMessage</label>
     </div>
 
     <div class="mb-3">
         <label for="middleName" class="form-label small-gray-label">Middle Name</label>
-        <InputText id="middleName" class="form-control" @bind-Value="@person.Name.MiddleName" />
+        <InputText id="middleName" class="@MiddleNameInputCssClass" @bind-Value="@person.Name.MiddleName" @onblur="@ValidateMiddleName" />
         <label class="text-danger">@middleNameValidationMessage</label>
     </div>
 
