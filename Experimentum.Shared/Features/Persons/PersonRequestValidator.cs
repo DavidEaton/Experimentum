@@ -1,5 +1,4 @@
-﻿using CSharpFunctionalExtensions;
-using Experimentum.Domain.Features;
+﻿using Experimentum.Domain.Features;
 using Experimentum.Shared.Features.Emails;
 using Experimentum.Shared.Features.Persons.PersonNames;
 using FluentValidation;
@@ -12,36 +11,42 @@ namespace Experimentum.Shared.Features.Persons
         {
             ClassLevelCascadeMode = CascadeMode.Continue;
 
-            RuleFor(person => person.Name)
+            IRuleBuilderOptions<PersonRequest, PersonNameRequest> personNameResult = RuleFor(person => person.Name)
                 .Cascade(CascadeMode.Continue)
                 .SetValidator(new PersonNameRequestValidator());
 
-            RuleFor(person => person.Email)
+            IRuleBuilderOptions<PersonRequest, EmailRequest> personEmailResult = RuleFor(person => person.Email)
                 .Cascade(CascadeMode.Continue)
                 .SetValidator(new EmailRequestValidator());
 
-            RuleFor(person => person)
+            IRuleBuilderOptions<PersonRequest, PersonRequest> personResult = RuleFor(person => person)
                 .MustBeEntity((person) =>
                 {
-                    var nameResult = PersonName.Create(person.Name.LastName, person.Name.FirstName, person.Name.MiddleName);
-                    if (nameResult.IsFailure)
-                    {
-                        return Result.Failure<Person>(nameResult.Error);
-                    }
-
-                    var emailResult = Email.Create(person.Email.Address);
-                    if (emailResult.IsFailure)
-                    {
-                        return Result.Failure<Person>(emailResult.Error);
-                    }
-
+                    // If either Name or Email value objects are null, Person.Create
+                    // will never run, and remaining validations will not be performed.
+                    // Instead, create fake valid values for Name and Email to ensure that
+                    // Person.Create will run and all validations will be performed.
                     return Person.Create(
-                        nameResult.Value,
+                        PersonName.Create("lastName", "firstName").Value,
                         person.Gender,
                         person.Birthday,
                         person.FavoriteColor,
-                        emailResult.Value);
+                        Email.Create("e@mail.com")
+                    .Value);
                 });
+
+            // combine the results of the PersonName, Email, and Person validators
+            // to ensure that all validations are performed and all error messages
+            // are returned
+            //RuleFor(person => person)
+            //    .Cascade(CascadeMode.Stop)
+            //    .Must((person) =>
+            //    {
+            //        return personNameResult && personEmailResult && personResult;
+            //    })
+            //    .WithMessage("Please correct the errors below.");
+
+
         }
     }
 }
