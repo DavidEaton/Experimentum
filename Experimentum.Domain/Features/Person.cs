@@ -40,7 +40,7 @@ namespace Experimentum.Domain.Features
             if (!Enum.IsDefined(typeof(Gender), gender))
                 errors.Add(RequiredMessage);
 
-            if (birthday.HasValue && !IsValidAge(birthday))
+            if (birthday.HasValue && !IsValidAgeOn(birthday))
                 errors.Add(InvalidBirthdayMessage);
 
             favoriteColor = (favoriteColor ?? string.Empty).Trim();
@@ -59,7 +59,7 @@ namespace Experimentum.Domain.Features
             return Result.Success(new Person(name, gender, birthday, favoriteColor, email));
         }
 
-        protected static bool IsValidAge(DateTime? birthDate)
+        public static bool IsValidAgeOn(DateTime? birthDate)
         {
             if (birthDate is null)
                 return false;
@@ -97,7 +97,7 @@ namespace Experimentum.Domain.Features
 
         public Result<DateTime?> SetBirthday(DateTime? birthday)
         {
-            if (!IsValidAge(birthday))
+            if (!IsValidAgeOn(birthday))
                 return Result.Failure<DateTime?>(InvalidBirthdayMessage);
 
             return Result.Success(Birthday = birthday);

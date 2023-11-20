@@ -1,9 +1,12 @@
-﻿using Experimentum.Domain.Features;
+﻿using Experimentum.Api.Features.Emails;
+using Experimentum.Api.Features.Persons.PersonNames;
+using Experimentum.Domain.Features;
 using Experimentum.Shared.Features.Emails;
+using Experimentum.Shared.Features.Persons;
 using Experimentum.Shared.Features.Persons.PersonNames;
 using FluentValidation;
 
-namespace Experimentum.Shared.Features.Persons
+namespace Experimentum.Api.Features.Persons
 {
     public class PersonRequestValidator : AbstractValidator<PersonRequest>
     {
@@ -12,17 +15,15 @@ namespace Experimentum.Shared.Features.Persons
             ClassLevelCascadeMode = CascadeMode.Continue;
 
             IRuleBuilderOptions<PersonRequest, PersonNameRequest> personNameResult = RuleFor(person => person.Name)
-                .Cascade(CascadeMode.Continue)
                 .SetValidator(new PersonNameRequestValidator());
 
             IRuleBuilderOptions<PersonRequest, EmailRequest> personEmailResult = RuleFor(person => person.Email)
-                .Cascade(CascadeMode.Continue)
                 .SetValidator(new EmailRequestValidator());
 
             IRuleBuilderOptions<PersonRequest, PersonRequest> personResult = RuleFor(person => person)
                 .MustBeEntity((person) =>
                 {
-                    // If either Name or Email value objects are null, Person.Create
+                    // If either Name or Email validations fail, Person.Create
                     // will never run, and remaining validations will not be performed.
                     // Instead, create fake valid values for Name and Email to ensure that
                     // Person.Create will run and all validations will be performed.

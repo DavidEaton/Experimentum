@@ -1,8 +1,9 @@
 ﻿using CSharpFunctionalExtensions;
 using Experimentum.Domain.Features;
+using Experimentum.Shared.Features.Businesses;
 using FluentValidation;
 
-namespace Experimentum.Shared.Features.Businesses
+namespace Experimentum.Api.Features.Businesses
 {
     public class BusinessRequestValidator : AbstractValidator<BusinessRequest>
     {
@@ -27,7 +28,7 @@ namespace Experimentum.Shared.Features.Businesses
                     //    return Result.Failure<Person>(nameResult.Error);
                     //}
 
-                    var emailResult = Email.Create(business.Email);
+                    var emailResult = Email.Create(business.Email.Address);
                     if (emailResult.IsFailure)
                     {
                         return Result.Failure<Business>(emailResult.Error);

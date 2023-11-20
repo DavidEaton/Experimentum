@@ -1,12 +1,15 @@
 ﻿using Experimentum.Domain.Features;
+using Experimentum.Shared.Features.Persons.PersonNames;
 using FluentValidation;
 
-namespace Experimentum.Shared.Features.Persons.PersonNames
+namespace Experimentum.Api.Features.Persons.PersonNames
 {
     public class PersonNameRequestValidator : AbstractValidator<PersonNameRequest>
     {
         public PersonNameRequestValidator()
         {
+            ClassLevelCascadeMode = CascadeMode.Continue;
+
             RuleFor(personName => personName)
             .MustBeValueObject(
                 name => PersonName.Create(

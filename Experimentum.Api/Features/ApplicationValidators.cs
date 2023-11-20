@@ -2,7 +2,7 @@
 using FluentValidation;
 using Entity = Experimentum.Domain.Abstractions.Entity;
 
-namespace Experimentum.Shared.Features
+namespace Experimentum.Api.Features
 {
     public static class ApplicationValidators
     {

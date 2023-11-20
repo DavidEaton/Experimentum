@@ -1,7 +1,8 @@
 ﻿using Experimentum.Domain.Features;
+using Experimentum.Shared.Features.Emails;
 using FluentValidation;
 
-namespace Experimentum.Shared.Features.Emails
+namespace Experimentum.Api.Features.Emails
 {
     public class EmailRequestValidator : AbstractValidator<EmailRequest>
     {
