@@ -15,21 +15,13 @@ namespace Experimentum.Client.Features.Persons
             PersonValidator = personValidator;
         }
 
-        private void SubmitForm()
-        {
-            ValidateForm();
-        }
+        private void SubmitValidForm()
+        => Console.WriteLine("SubmitValidForm() called: Form Submitted Successfully!");
 
         private void ValidateForm()
         {
             var validationResult = PersonValidator?.Validate(person);
-
-            if (validationResult is null)
-            {
-                return;
-            }
-
-
+            Console.WriteLine($"ValidateForm() called... validationResult: {validationResult}");
         }
     }
 }
