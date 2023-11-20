@@ -5,7 +5,7 @@ namespace Experimentum.Domain.Features
 {
     public class Person : Entity
     {
-        public static readonly string RequiredMessage = "Please enter all required item.";
+        public static readonly string RequiredMessage = "Please enter all required items.";
         public static readonly string EmailRequiredMessage = "Please enter a valid email address.";
         public static readonly string NameRequiredMessage = "Please enter a Name.";
         public static readonly string InvalidBirthdayMessage = $"Birth date was invalid";

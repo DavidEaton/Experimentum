@@ -1,9 +1,7 @@
 ﻿using Experimentum.Api.Features.Emails;
 using Experimentum.Api.Features.Persons.PersonNames;
 using Experimentum.Domain.Features;
-using Experimentum.Shared.Features.Emails;
 using Experimentum.Shared.Features.Persons;
-using Experimentum.Shared.Features.Persons.PersonNames;
 using FluentValidation;
 
 namespace Experimentum.Api.Features.Persons
@@ -14,27 +12,26 @@ namespace Experimentum.Api.Features.Persons
         {
             ClassLevelCascadeMode = CascadeMode.Continue;
 
-            IRuleBuilderOptions<PersonRequest, PersonNameRequest> personNameResult = RuleFor(person => person.Name)
+            RuleFor(person => person.Name)
                 .SetValidator(new PersonNameRequestValidator());
 
-            IRuleBuilderOptions<PersonRequest, EmailRequest> personEmailResult = RuleFor(person => person.Email)
+            RuleFor(person => person.Email)
                 .SetValidator(new EmailRequestValidator());
 
-            IRuleBuilderOptions<PersonRequest, PersonRequest> personResult = RuleFor(person => person)
-                .MustBeEntity((person) =>
-                {
-                    // If either Name or Email validations fail, Person.Create
-                    // will never run, and remaining validations will not be performed.
-                    // Instead, create fake valid values for Name and Email to ensure that
-                    // Person.Create will run and all validations will be performed.
-                    return Person.Create(
+            // If either Name or Email validations fail, Person.Create
+            // will never run, and remaining validations will not be performed.
+            // Instead, create fake valid values for Name and Email to ensure that
+            // Person.Create will run and all validations will be performed.
+            RuleFor(person => person)
+                .MustBeEntity(
+                    person =>
+                    Person.Create(
                         PersonName.Create("lastName", "firstName").Value,
                         person.Gender,
                         person.Birthday,
                         person.FavoriteColor,
                         Email.Create("e@mail.com")
-                    .Value);
-                });
+                    .Value));
 
             // combine the results of the PersonName, Email, and Person validators
             // to ensure that all validations are performed and all error messages
@@ -46,8 +43,6 @@ namespace Experimentum.Api.Features.Persons
             //        return personNameResult && personEmailResult && personResult;
             //    })
             //    .WithMessage("Please correct the errors below.");
-
-
         }
     }
 }

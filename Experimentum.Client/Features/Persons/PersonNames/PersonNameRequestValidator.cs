@@ -12,18 +12,20 @@ namespace Experimentum.Client.Features.Persons.PersonNames
 
             RuleFor(name => name.FirstName)
                 .NotEmpty()
+                .WithMessage(PersonName.RequiredMessage)
                 .Length(PersonName.MinimumLength, PersonName.MaximumLength)
                 .WithMessage(PersonName.InvalidLengthMessage);
 
             RuleFor(name => name.LastName)
                 .NotEmpty()
+                .WithMessage(PersonName.RequiredMessage)
                 .Length(PersonName.MinimumLength, PersonName.MaximumLength)
                 .WithMessage(PersonName.InvalidLengthMessage);
 
             RuleFor(name => name.MiddleName)
                 .Length(PersonName.MinimumLength, PersonName.MaximumLength)
-                .When(name => !string.IsNullOrWhiteSpace(name.MiddleName))
-                .WithMessage(PersonName.InvalidLengthMessage);
+                .WithMessage(PersonName.InvalidLengthMessage)
+                .When(name => !string.IsNullOrWhiteSpace(name.MiddleName));
         }
     }
 }

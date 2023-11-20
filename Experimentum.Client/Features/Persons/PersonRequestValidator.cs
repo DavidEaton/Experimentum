@@ -21,9 +21,9 @@ namespace Experimentum.Client.Features.Persons
                 .WithMessage(Person.RequiredMessage);
 
             RuleFor(person => person.Birthday)
-                .Cascade(CascadeMode.Stop)
                 .Must(birthday => Person.IsValidAgeOn(birthday))
-                .WithMessage(Person.InvalidBirthdayMessage);
+                .WithMessage(Person.InvalidBirthdayMessage)
+                .When(person => person.Birthday.HasValue);
 
             RuleFor(person => person.FavoriteColor)
                 .Length(Person.FavoriteColorMinimumLength, Person.FavoriteColorMaximumLength)
