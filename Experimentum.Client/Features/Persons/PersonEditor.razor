@@ -1,30 +1,8 @@
 ﻿<h3 class="text-secondary">Add/Edit Person</h3>
 <EditForm Model="@person" class="mb-3" OnValidSubmit="@SubmitValidForm">
+
     <FluentValidationValidator />
-    @* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// *@
-    @* ////////////////////                   REPLACE WITH COMPONENT                           //////////////////////////// *@
-    @* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// *@
-    <div class="mb-3">
-        <label for="lastName" class="form-label small-gray-label">Last Name</label>
-        <InputText id="lastName" class="form-control" @bind-Value="@person.Name.LastName" @onblur="@ValidateForm" />
-        <ValidationMessage For="@(() => person.Name.LastName)" />
-    </div>
-
-    <div class="mb-3">
-        <label for="firstName" class="form-label small-gray-label">First Name</label>
-        <InputText id="firstName" class="form-control" @bind-Value="@person.Name.FirstName" @onblur="@ValidateForm" />
-        <ValidationMessage For="@(() => person.Name.FirstName)" />
-    </div>
-
-    <div class="mb-3">
-        <label for="middleName" class="form-label small-gray-label">Middle Name</label>
-        <InputText id="middleName" class="form-control" @bind-Value="@person.Name.MiddleName" @onblur="@ValidateForm" />
-        <ValidationMessage For="@(() => person.Name.MiddleName)" />
-    </div>
-
-    @* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// *@
-    @* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// *@
-    @* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// *@
+    <PersonNameEditor Name="@person.Name" />
 
     <div class="mb-3">
         <label for="gender" class="form-label small-gray-label">Gender</label>

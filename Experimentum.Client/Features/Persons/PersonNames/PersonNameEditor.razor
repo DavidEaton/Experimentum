@@ -1,18 +1,17 @@
-﻿<h3>PersonNameEditor</h3>
-<div class="mb-3">
+﻿<div class="mb-3">
     <label for="lastName" class="form-label small-gray-label">Last Name</label>
-    <InputText id="lastName" class="form-control" @bind-Value="@personName.LastName" @onblur="@Validate" />
-    <ValidationMessage For="@(() => personName.LastName)" />
+    <InputText id="lastName" class="form-control" @bind-Value="@Name.LastName" />
+    <ValidationMessage For="@(() => Name.LastName)" />
 </div>
 
 <div class="mb-3">
     <label for="firstName" class="form-label small-gray-label">First Name</label>
-    <InputText id="firstName" class="form-control" @bind-Value="@personName.FirstName" @onblur="@Validate" />
-    <ValidationMessage For="@(() => personName.FirstName)" />
+    <InputText id="firstName" class="form-control" @bind-Value="@Name.FirstName" />
+    <ValidationMessage For="@(() => Name.FirstName)" />
 </div>
 
 <div class="mb-3">
     <label for="middleName" class="form-label small-gray-label">Middle Name</label>
-    <InputText id="middleName" class="form-control" @bind-Value="@personName.MiddleName" @onblur="@Validate" />
-    <ValidationMessage For="@(() => personName.MiddleName)" />
+    <InputText id="middleName" class="form-control" @bind-Value="@Name.MiddleName" />
+    <ValidationMessage For="@(() => Name.MiddleName)" />
 </div>
