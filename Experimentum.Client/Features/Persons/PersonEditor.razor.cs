@@ -16,12 +16,24 @@ namespace Experimentum.Client.Features.Persons
         }
 
         private void SubmitValidForm()
-        => Console.WriteLine("SubmitValidForm() called: Form Submitted Successfully!");
-
+        {
+            TrimPersonRequest();
+            Console.WriteLine("SubmitValidForm() called: Form Submitted Successfully!");
+        }
         private void ValidateForm()
         {
+            TrimPersonRequest();
             var validationResult = PersonValidator?.Validate(person);
             Console.WriteLine($"ValidateForm() called... validationResult: {validationResult}");
+        }
+
+        private void TrimPersonRequest()
+        {
+            person.Name.FirstName = person.Name.FirstName?.Trim();
+            person.Name.LastName = person.Name.LastName?.Trim();
+            person.Name.MiddleName = person.Name.MiddleName?.Trim();
+            person.FavoriteColor = person.FavoriteColor?.Trim();
+            person.Email.Address = person.Email.Address?.Trim();
         }
     }
 }
