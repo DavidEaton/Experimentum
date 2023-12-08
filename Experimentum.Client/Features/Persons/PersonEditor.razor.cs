@@ -10,10 +10,6 @@ namespace Experimentum.Client.Features.Persons
         [Inject] private IValidator<PersonRequest>? PersonValidator { get; set; }
 
         public PersonEditor() { }
-        public PersonEditor(IValidator<PersonRequest>? personValidator)
-        {
-            PersonValidator = personValidator;
-        }
 
         private void SubmitValidForm()
         {
