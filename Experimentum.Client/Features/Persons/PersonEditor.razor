@@ -2,6 +2,7 @@
 <EditForm Model="@person" class="mb-3" OnValidSubmit="@SubmitValidForm">
 
     <FluentValidationValidator DisableAssemblyScanning="@true" />
+
     <PersonNameEditor Name="@person.Name" />
 
     <div class="mb-3">

@@ -1,5 +1,6 @@
 ﻿using Experimentum.Client.Features.Emails;
 using Experimentum.Client.Features.Persons.PersonNames;
+using Experimentum.Client.Features.Phones;
 using Experimentum.Domain.Features;
 using Experimentum.Shared.Features.Persons;
 using FluentValidation;
@@ -33,6 +34,9 @@ namespace Experimentum.Client.Features.Persons
             RuleFor(person => person.Email)
                 .NotEmpty()
                 .SetValidator(new EmailRequestValidator());
+
+            RuleFor(person => person.Phones)
+                .SetValidator(new PhonesRequestValidator());
         }
     }
 }

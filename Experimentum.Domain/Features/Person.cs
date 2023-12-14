@@ -21,6 +21,9 @@ namespace Experimentum.Domain.Features
         public string FavoriteColor { get; private set; }
         public Email Email { get; private set; }
 
+        private readonly List<Phone> phones = new();
+        public IReadOnlyList<Phone> Phones => phones.ToList();
+
         private Person(PersonName name, Gender gender, DateTime? birthday, string favoriteColor, Email email)
         {
             Name = name;
