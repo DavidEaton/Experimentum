@@ -35,5 +35,11 @@ namespace Experimentum.Client.Features.Persons
             PersonFormMode = FormMode.Add;
             Person = new PersonRequest();
         }
+
+        private void CancelEdit()
+        {
+            PersonFormMode = FormMode.View;
+            Person = null;
+        }
     }
 }

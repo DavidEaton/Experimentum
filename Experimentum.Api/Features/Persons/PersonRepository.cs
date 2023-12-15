@@ -1,4 +1,5 @@
-﻿using Experimentum.Api.Data;
+﻿using CSharpFunctionalExtensions;
+using Experimentum.Api.Data;
 using Experimentum.Domain.Features;
 using Experimentum.Shared.Features.Persons;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +48,7 @@ namespace Experimentum.Api.Features.Persons
         public async Task<Person?> GetEntityAsync(long id)
         {
             return await context.Persons
+                .Include(person => person.Phones)
                 .AsSplitQuery()
                 .FirstOrDefaultAsync(person => person.Id == id);
         }

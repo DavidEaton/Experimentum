@@ -1,11 +1,36 @@
 ﻿using Experimentum.Domain.Features;
 using Experimentum.Shared.Features.Emails;
 using Experimentum.Shared.Features.Persons.PersonNames;
+using Experimentum.Shared.Features.Phones;
 
 namespace Experimentum.Shared.Features.Persons
 {
     public static class PersonContractExtensions
     {
+        public static PhoneRequest ToRequest(this Phone phone)
+        {
+            return phone is null
+                ? new()
+                : new()
+                {
+                    Id = phone.Id,
+                    Number = phone.Number,
+                    PhoneType = phone.PhoneType
+                };
+        }
+
+        public static PhoneRequest ToRequest(this PhoneResponse phone)
+        {
+            return phone is null
+                ? new()
+                : new()
+                {
+                    Id = phone.Id,
+                    Number = phone.Number,
+                    PhoneType = phone.PhoneType
+                };
+        }
+
         public static Person? ToEntity(this PersonRequest person) =>
             person is null
                 ? null
@@ -36,7 +61,10 @@ namespace Experimentum.Shared.Features.Persons
                         Address = person.Email.Address
                     },
                     FavoriteColor = person.FavoriteColor,
-                    Gender = person.Gender
+                    Gender = person.Gender,
+                    Phones = person.Phones
+                        .Select(phone => phone.ToRequest())
+                        .ToList()
                 };
         }
 
@@ -59,7 +87,10 @@ namespace Experimentum.Shared.Features.Persons
                         Address = person.Email.Address
                     },
                     FavoriteColor = person.FavoriteColor,
-                    Gender = person.Gender
+                    Gender = person.Gender,
+                    Phones = person.Phones
+                        .Select(phone => phone.ToRequest())
+                        .ToList()
                 };
         }
     }

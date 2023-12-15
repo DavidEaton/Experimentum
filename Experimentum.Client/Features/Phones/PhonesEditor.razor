@@ -1,0 +1,70 @@
+﻿@using Experimentum.Shared.Features.Phones
+<div class="container">
+    <button type="button"
+            class="btn btn-success btn-sm"
+            onclick="@Add"
+            id="addPhone"
+            title="Add Phone">
+        <span style="font-size: 1.25rem; line-height: 1;">+</span>
+    </button>
+</div>
+
+@if (Phones is not null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var phone in Phones)
+            {
+                <tr @onclick="() => Edit(phone)" @key="phone">
+                    <td>@phone.Number</td>
+                    <td>@phone.PhoneType</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@if (FormMode == FormMode.Add || FormMode == FormMode.Edit)
+{
+    if (Phone is not null)
+    {
+
+        <div class="container">
+
+            <div class="form-group row">
+                <label class="k-label">Number</label>
+                <input type="tel" class="form-control" @bind="@Phone.Number" @onblur="@ValidateForm" />
+                <ValidationMessage For="@(() => Phone.Number)" />
+            </div>
+
+            <div class="form-group row">
+                <label for="phoneType" class="form-label small-gray-label">Type</label>
+                <InputSelect id="phoneType" class="form-control" @bind-Value="@Phone.PhoneType" @onblur="@ValidateForm">
+                    <option value="9">"invalid"</option>
+                    @foreach (var phoneType in Enum.GetValues<Experimentum.Domain.Features.PhoneType>())
+                    {
+                        <option value="@phoneType">@phoneType</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => Phone.PhoneType)" />
+            </div>
+
+            <div form-group row>
+                <button class="btn btn-primary dialog-button" @onclick="Save" title="Save Phone">
+                    <i class="bi bi-check"></i> Ok
+                </button>
+            </div>
+        </div>
+    }
+}
+<style>
+    .remove-item {
+        color: white;
+        background-color: #d9534f;
+    }
+</style>

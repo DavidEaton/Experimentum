@@ -23,7 +23,9 @@
 
     @if ((PersonFormMode == FormMode.Add || PersonFormMode == FormMode.Edit) && Person is not null)
     {
-        <PersonEditor />
+        <PersonEditor FormMode="PersonFormMode"
+                      Person="Person"
+                      OnCancel="CancelEdit" />
     }
 
 </div>

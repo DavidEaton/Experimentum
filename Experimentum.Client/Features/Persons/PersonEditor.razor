@@ -1,44 +1,54 @@
 ﻿<h3 class="text-secondary">Add/Edit Person</h3>
-<EditForm Model="@person" class="mb-3" OnValidSubmit="@SubmitValidForm">
+<EditForm Model="@Person" class="mb-3" OnValidSubmit="@SubmitValidForm">
 
     <FluentValidationValidator DisableAssemblyScanning="@true" />
 
-    <PersonNameEditor Name="@person.Name" />
+    <PersonNameEditor Name="@Person.Name" />
 
     <div class="mb-3">
         <label for="gender" class="form-label small-gray-label">Gender</label>
-        <InputSelect id="gender" class="form-control" @bind-Value="@person.Gender" @onblur="@ValidateForm">
+        <InputSelect id="gender" class="form-control" @bind-Value="@Person.Gender" @onblur="@ValidateForm">
             <option value="9">"invalid"</option>
             @foreach (var gender in Enum.GetValues<Gender>())
             {
                 <option value="@gender">@gender</option>
             }
         </InputSelect>
-        <ValidationMessage For="@(() => person.Gender)" />
+        <ValidationMessage For="@(() => Person.Gender)" />
     </div>
 
     <div class="mb-3">
         <label for="birthday" class="form-label small-gray-label">Birthday</label>
-        <InputDate id="birthday" class="form-control" @bind-Value="@person.Birthday" @onblur="@ValidateForm" />
-        <ValidationMessage For=@( () => person.Birthday ) />
+        <InputDate id="birthday" class="form-control" @bind-Value="@Person.Birthday" @onblur="@ValidateForm" />
+        <ValidationMessage For=@( () => Person.Birthday ) />
 
     </div>
 
     <div class="mb-3">
         <label for="favoriteColor" class="form-label small-gray-label">Favorite Color</label>
-        <InputText id="favoriteColor" class="form-control" @bind-Value="@person.FavoriteColor" @onblur="@ValidateForm" />
-        <ValidationMessage For="@( () => person.FavoriteColor )" />
+        <InputText id="favoriteColor" class="form-control" @bind-Value="@Person.FavoriteColor" @onblur="@ValidateForm" />
+        <ValidationMessage For="@( () => Person.FavoriteColor )" />
 
     </div>
 
     <div class="mb-3">
         <label for="email" class="form-label small-gray-label">Email</label>
-        <InputText id="email" class="form-control" @bind-Value="@person.Email.Address" @onblur="@ValidateForm" />
-        <ValidationMessage For="@( () => person.Email.Address )" />
-     </div>
+        <InputText id="email" class="form-control" @bind-Value="@Person.Email.Address" @onblur="@ValidateForm" />
+        <ValidationMessage For="@( () => Person.Email.Address )" />
+    </div>
+
+
+    <PhonesEditor FormMode="FormMode" Phones="Person.Phones">
+        @*         <ValidationMessage For="@( () => Person.Phones )" />
+        *@
+    </PhonesEditor>
 
     <div class="d-flex align-items-start justify-content-start">
         <button type="submit" class="btn btn-primary">Submit</button>
         <ValidationSummary />
+    </div>
+
+    <div class="d-flex align-items-start justify-content-start">
+        <button type="button" class="btn btn-secondary" @onclick="Cancel">Cancel</button>
     </div>
 </EditForm>
