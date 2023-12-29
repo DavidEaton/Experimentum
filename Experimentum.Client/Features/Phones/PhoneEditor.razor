@@ -1,5 +1,6 @@
-﻿<div class="container">
-
+﻿<TelerikWindow Visible="true"
+    Modal="true"
+    Class="popupWindowClass">
     <div class="form-group row">
         <label class="k-label">Number</label>
         <input type="tel" class="form-control" @bind="@Phone.Number" @onblur="@ValidateForm" />
@@ -26,4 +27,4 @@
             <i class="bi bi-check"></i> Cancel
         </button>
     </div>
-</div>
+</TelerikWindow>
