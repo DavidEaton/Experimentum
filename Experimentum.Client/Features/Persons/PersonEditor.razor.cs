@@ -11,6 +11,7 @@ namespace Experimentum.Client.Features.Persons
         [Inject] private IValidator<PersonRequest>? PersonValidator { get; set; }
         [Parameter] public FormMode FormMode { get; set; }
         [Parameter] public EventCallback<PersonRequest> OnCancel { get; set; }
+        [Parameter] public EventCallback<PersonRequest> OnSubmit { get; set; }
         public PersonEditor() { }
 
         protected override void OnParametersSet()
@@ -29,6 +30,7 @@ namespace Experimentum.Client.Features.Persons
         {
             TrimPersonRequest();
             Console.WriteLine("SubmitValidForm() called: Form Submitted Successfully!");
+            OnSubmit.InvokeAsync(Person);
         }
         private void ValidateForm()
         {

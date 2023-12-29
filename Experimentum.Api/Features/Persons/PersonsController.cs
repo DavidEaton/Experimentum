@@ -65,22 +65,57 @@ namespace Experimentum.Api.Features.Persons
         }
 
         [HttpPut("{id:long}")]
-        public async Task<ActionResult> UpdateAsync(PersonRequest personFromCaller)
+        public async Task<ActionResult> UpdateAsync(PersonRequest request)
         {
-            var personFromRepository = await repository.GetEntityAsync(personFromCaller.Id);
-            if (personFromRepository is null)
-                return NotFound($"Could not find {personFromCaller.Name.FirstName} {personFromCaller.Name.LastName} to update");
+            Person? person = await repository.GetEntityAsync(request.Id);
+            if (person is null)
+                return NotFound($"Could not find {request.Name.FirstName} {request.Name.LastName} to update");
 
-            UpdateName(personFromCaller, personFromRepository);
+            UpdateName(request, person);
 
-            personFromRepository.SetGender(personFromCaller.Gender);
-            personFromRepository.SetBirthday(personFromCaller.Birthday);
-            personFromRepository.SetFavoriteColor(personFromCaller.FavoriteColor);
-            personFromRepository.SetEmail(Email.Create(personFromCaller.Email.Address).Value);
+            person.SetGender(request.Gender);
+            person.SetBirthday(request.Birthday);
+            person.SetFavoriteColor(request.FavoriteColor);
+            person.SetEmail(Email.Create(request.Email.Address).Value);
+
+            UpdatePhones(request, person);
 
             await repository.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        private void UpdatePhones(PersonRequest request, Person person)
+        {
+            foreach (var phone in person.Phones)
+            {
+                var phoneRequest = request.Phones.FirstOrDefault(p => p.Id == phone.Id);
+
+                if (phoneRequest is null)
+                {
+                    person.RemovePhone(phone);
+                }
+                else
+                {
+
+                    if (phoneRequest.Number != phone.Number)
+                    {
+                        phone.SetNumber(phoneRequest.Number);
+                    }
+
+                    if (phoneRequest.PhoneType != phone.PhoneType)
+                    {
+                        phone.SetPhoneType(phoneRequest.PhoneType);
+                    }
+                }
+            }
+
+            foreach (var phoneRequest in request.Phones
+                .Where(p => p.Id == 0))
+            {
+                var phone = Phone.Create(phoneRequest.Number, phoneRequest.PhoneType).Value;
+                person.AddPhone(phone);
+            }
         }
 
         internal static void UpdateName(PersonRequest personFromCaller, Person personFromRepository)

@@ -38,6 +38,12 @@ namespace Experimentum.Client.Features.Phones
             FormMode = FormMode.View;
         }
 
+        private void Cancel()
+        {
+            Phone = null;
+            FormMode = FormMode.View;
+        }
+
         private void Delete(PhoneRequest phone)
         {
             if (Phone is not null)

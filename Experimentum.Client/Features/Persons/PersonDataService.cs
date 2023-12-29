@@ -1,4 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
+using Experimentum.Client.Shared;
 using Experimentum.Shared.Features.Persons;
 using System.Net.Http.Json;
 
@@ -34,14 +35,29 @@ namespace Experimentum.Client.Features.Persons
             }
         }
 
-        public Task<Result> AddAsync(PersonRequest person)
+        public async Task<Result> AddAsync(PersonRequest person)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = await httpClient.AddAsync(
+                    UriSegment,
+                    person);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return Result.Failure($"An unexpected error occurred: {ex.Message}");
+            }
         }
 
-        public Task<Result> UpdateAsync(PersonRequest person)
+        public async Task<Result> UpdateAsync(PersonRequest fromCaller)
         {
-            throw new NotImplementedException();
+            return await httpClient.UpdateAsync(
+                UriSegment,
+                fromCaller,
+                person => $"{fromCaller.Name.FirstName} {fromCaller.Name.LastName}",
+                person => person.Id);
         }
 
         public async Task<Result<IReadOnlyList<PersonResponse>>> GetAllAsync()

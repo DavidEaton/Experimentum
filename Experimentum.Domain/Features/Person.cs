@@ -1,11 +1,10 @@
 ﻿using CSharpFunctionalExtensions;
-using Entity = Experimentum.Domain.Abstractions.Entity;
+using Experimentum.Domain.Abstractions;
 
 namespace Experimentum.Domain.Features
 {
-    public class Person : Entity
+    public class Person : Contactable
     {
-        public static readonly string RequiredMessage = "Please enter all required items.";
         public static readonly string EmailRequiredMessage = "Please enter a valid email address.";
         public static readonly string NameRequiredMessage = "Please enter a Name.";
         public static readonly string InvalidBirthdayMessage = $"Birth date was invalid";
@@ -21,10 +20,8 @@ namespace Experimentum.Domain.Features
         public string FavoriteColor { get; private set; }
         public Email Email { get; private set; }
 
-        private readonly List<Phone> phones = new();
-        public IReadOnlyList<Phone> Phones => phones.ToList();
-
-        private Person(PersonName name, Gender gender, DateTime? birthday, string favoriteColor, Email email)
+        private Person(PersonName name, Gender gender, DateTime? birthday, string favoriteColor, Email email, List<Phone> phones)
+            : base(phones)
         {
             Name = name;
             Gender = gender;
@@ -33,7 +30,12 @@ namespace Experimentum.Domain.Features
             Email = email;
         }
 
-        public static Result<Person> Create(PersonName name, Gender gender, DateTime? birthday, string favoriteColor, Email email)
+        public static Result<Person> Create(PersonName name,
+            Gender gender,
+            DateTime? birthday,
+            string favoriteColor,
+            Email email,
+            List<Phone>? phones = null)
         {
             var errors = new List<string>();
 
@@ -59,7 +61,7 @@ namespace Experimentum.Domain.Features
             if (errors.Count > 0)
                 return Result.Failure<Person>(string.Join("; ", errors));
 
-            return Result.Success(new Person(name, gender, birthday, favoriteColor, email));
+            return Result.Success(new Person(name, gender, birthday, favoriteColor, email, phones));
         }
 
         public static bool IsValidAgeOn(DateTime? birthDate)

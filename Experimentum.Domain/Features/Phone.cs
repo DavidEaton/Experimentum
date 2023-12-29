@@ -41,5 +41,26 @@ namespace Experimentum.Domain.Features
 
             return Result.Success(new Phone(number, phoneType));
         }
+
+        public Result<string> SetNumber(string number)
+        {
+            number = (number ?? string.Empty).Trim();
+
+            var phoneAttribute = new PhoneAttribute();
+
+            if (!phoneAttribute.IsValid(number))
+                return Result.Failure<string>(InvalidMessage);
+
+            return Result.Success(Number = number);
+        }
+
+        public Result<PhoneType> SetPhoneType(PhoneType phoneType)
+        {
+            if (!Enum.IsDefined(typeof(PhoneType), phoneType))
+                return Result.Failure<PhoneType>(InvalidMessage);
+
+            return Result.Success(PhoneType = phoneType);
+        }
+
     }
 }

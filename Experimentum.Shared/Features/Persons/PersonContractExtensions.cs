@@ -7,30 +7,6 @@ namespace Experimentum.Shared.Features.Persons
 {
     public static class PersonContractExtensions
     {
-        public static PhoneRequest ToRequest(this Phone phone)
-        {
-            return phone is null
-                ? new()
-                : new()
-                {
-                    Id = phone.Id,
-                    Number = phone.Number,
-                    PhoneType = phone.PhoneType
-                };
-        }
-
-        public static PhoneRequest ToRequest(this PhoneResponse phone)
-        {
-            return phone is null
-                ? new()
-                : new()
-                {
-                    Id = phone.Id,
-                    Number = phone.Number,
-                    PhoneType = phone.PhoneType
-                };
-        }
-
         public static Person? ToEntity(this PersonRequest person) =>
             person is null
                 ? null

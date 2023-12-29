@@ -1,6 +1,7 @@
 ﻿using Experimentum.Client.Features.Emails;
 using Experimentum.Client.Features.Persons.PersonNames;
 using Experimentum.Client.Features.Phones;
+using Experimentum.Domain.Abstractions;
 using Experimentum.Domain.Features;
 using Experimentum.Shared.Features.Persons;
 using FluentValidation;
@@ -19,7 +20,7 @@ namespace Experimentum.Client.Features.Persons
 
             RuleFor(person => person.Gender)
                 .IsInEnum()
-                .WithMessage(Person.RequiredMessage);
+                .WithMessage(Contactable.RequiredMessage);
 
             RuleFor(person => person.Birthday)
                 .Must(birthday => Person.IsValidAgeOn(birthday))
