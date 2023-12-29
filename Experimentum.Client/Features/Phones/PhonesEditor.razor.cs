@@ -15,6 +15,7 @@ namespace Experimentum.Client.Features.Phones
         private void Add()
         {
             Phone = new();
+            Phones.Add(Phone);
             FormMode = FormMode.Add;
             Console.WriteLine("Add() called");
         }
