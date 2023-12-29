@@ -1,0 +1,16 @@
+﻿@using Experimentum.Client.Shared
+@code
+{
+	[Fact]
+	public void RenderCorrectly()
+  {
+	// Arrange
+	using var context = new TestContext();
+
+	//Act
+	var cut = context.Render(@<HelloExperimenter />);
+
+	// Assert
+	cut.MarkupMatches(@<h1>Hello Experimenter</h1>);
+  }
+}
