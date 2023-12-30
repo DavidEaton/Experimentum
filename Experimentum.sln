@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Experimentum.Domain", "Expe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Experimentum.Shared", "Experimentum.Shared\Experimentum.Shared.csproj", "{34F2EECD-0EF0-4988-B74F-84EA54203E2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Experimentum.Tests", "Experimentum.Tests\Experimentum.Tests.csproj", "{54180DD3-CF70-4BF0-8099-AD90280D2BC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Experimentum.Tests", "Experimentum.Tests\Experimentum.Tests.csproj", "{54180DD3-CF70-4BF0-8099-AD90280D2BC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

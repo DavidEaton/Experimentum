@@ -1,0 +1,21 @@
+﻿@using Experimentum.Client.Features.Phones
+@inherits TestContext
+@code
+{
+    [Fact]
+    public void Render_correctly_with_value_greater_than_zero()
+    {
+        // Arrange
+        var phoneRequest = new PhoneRequest()
+            {
+                Number = "1234567890",
+                PhoneType = PhoneType.Home
+            };
+        //
+        // Act
+        var cut = Render(@<PhoneEditor Phone="phoneRequest" FormMode="FormMode.Add" />);
+
+        // Assert
+        cut.Find("h3").MarkupMatches("<h3>Add Phone</h3>");
+    }
+}

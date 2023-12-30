@@ -18,6 +18,13 @@ namespace Experimentum.Client.Features.Phones
         [Parameter]
         public EventCallback Cancel { get; set; }
 
+        private string Title => FormMode switch
+        {
+            FormMode.Add => "Create Phone",
+            FormMode.Edit => "Edit Phone",
+            _ => "Phone"
+        };
+
         private void ValidateForm()
         {
             Console.WriteLine("ValidateForm called");
