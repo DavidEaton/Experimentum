@@ -1,0 +1,18 @@
+﻿<TelerikRootComponent>
+    <EditForm EditContext="@editContext">
+        <PhoneEditor Phone="@Phone" FormMode="@FormMode" />
+    </EditForm>
+</TelerikRootComponent>
+
+@code {
+    [Parameter] public PhoneRequest Phone { get; set; }
+    [Parameter] public FormMode FormMode { get; set; }
+
+    private EditContext? editContext;
+
+    protected override void OnInitialized()
+    {
+        editContext = new EditContext(Phone);
+        base.OnInitialized();
+    }
+}

@@ -1,4 +1,7 @@
 ﻿@using Experimentum.Client.Features.Phones
+@using Microsoft.AspNetCore.Components.Forms
+@using Moq
+@using System.Threading
 @inherits TestContext
 @code
 {
@@ -6,14 +9,31 @@
     public void Render_correctly_with_value_greater_than_zero()
     {
         // Arrange
+        Services.AddTelerikBlazor(); // This registers the required Telerik services.
+
         var phoneRequest = new PhoneRequest()
             {
                 Number = "1234567890",
                 PhoneType = PhoneType.Home
             };
-        //
-        // Act
-        var cut = Render(@<PhoneEditor Phone="phoneRequest" FormMode="FormMode.Add" />);
+        var editContext = new EditContext(phoneRequest);
+
+        // Mock JSRuntime
+        // Note: You'll need to adjust this to match the JS interop calls made by your specific Telerik components.
+        var jsRuntimeMock = new Mock<IJSRuntime>();
+        jsRuntimeMock.Setup(js =>
+            js.InvokeAsync<object>(
+                It.IsAny<string>(), // The JS function identifier
+                It.IsAny<CancellationToken>(), // CancellationToken, if needed
+                It.IsAny<object[]>()) // The arguments passed to the JS function
+            ).ReturnsAsync(new object()); // Return value for the JS function call
+
+        JSInterop.Mode = JSRuntimeMode.Loose; // Or Strict, depending on your needs.
+        Services.AddSingleton(jsRuntimeMock.Object);
+
+        var cut = RenderComponent<PhoneEditor>(parameters => parameters
+            .Add(p => p.Phone, phoneRequest)
+            .Add(p => p.FormMode, FormMode.Add));
 
         // Assert
         cut.Find("h3").MarkupMatches("<h3>Add Phone</h3>");

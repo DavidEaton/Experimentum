@@ -6,8 +6,8 @@
         <div class="form-group row">
             <label class="k-label">Number</label>
             <input type="tel" class="form-control" @bind="@Phone.Number" @onblur="@ValidateForm" />
-            <ValidationMessage For="@(() => Phone.Number)" />
-        </div>
+@*             <ValidationMessage For="@(() => Phone.Number)" />
+ *@        </div>
 
         <div class="form-group row">
             <label for="phoneType" class="form-label small-gray-label">Type</label>
@@ -18,8 +18,8 @@
                     <option value="@phoneType">@phoneType</option>
                 }
             </InputSelect>
-            <ValidationMessage For="@(() => Phone.PhoneType)" />
-        </div>
+@*             <ValidationMessage For="@(() => Phone.PhoneType)" />
+ *@        </div>
 
         <div form-group row>
             <button class="btn btn-primary dialog-button" @onclick="Ok" title="Save Phone">
