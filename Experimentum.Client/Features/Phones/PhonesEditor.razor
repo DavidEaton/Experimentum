@@ -1,0 +1,48 @@
+﻿@using Experimentum.Shared.Features.Phones
+<div class="container">
+    <button type="button"
+            class="btn btn-success btn-sm"
+            onclick="@Add"
+            id="addPhone"
+            title="Add Phone">
+        <span style="font-size: 1.25rem; line-height: 1;">+</span>
+    </button>
+</div>
+
+@if (Phones is not null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var phone in Phones)
+            {
+                <tr @onclick="() => Edit(phone)" @key="phone">
+                    <td>@phone.Number</td>
+                    <td>@phone.PhoneType</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@if (FormMode == FormMode.Add || FormMode == FormMode.Edit)
+{
+    if (Phone is not null)
+    {
+        <PhoneEditor FormMode="FormMode"
+                     Ok="Save"
+                     Cancel="Cancel"
+                     Phone="Phone">
+        </PhoneEditor>
+    }
+}
+<style>
+    .remove-item {
+        color: white;
+        background-color: #d9534f;
+    }
+</style>

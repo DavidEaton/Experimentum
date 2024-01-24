@@ -4,6 +4,7 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<BlazorLinkOnBuild>false</BlazorLinkOnBuild>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -14,6 +15,7 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+		<PackageReference Include="Telerik.UI.for.Blazor" Version="4.2.0" />
 	</ItemGroup>
 
 	<ItemGroup>

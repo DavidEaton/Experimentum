@@ -33,7 +33,36 @@ namespace Experimentum.Client.Features.Persons
         private void AddPerson()
         {
             PersonFormMode = FormMode.Add;
+            Person = new PersonRequest();
+        }
 
+        private void CancelEdit()
+        {
+            PersonFormMode = FormMode.View;
+            Person = null;
+        }
+
+        private async Task SavePerson()
+        {
+            if (Person is not null)
+            {
+                var result = Person.Id > 0
+                    ? await PersonDataService.UpdateAsync(Person)
+                    : await PersonDataService.AddAsync(Person);
+
+                if (result.IsSuccess)
+                {
+                    PersonFormMode = FormMode.View;
+                    Person = null;
+                    await OnInitializedAsync();
+                }
+            }
+        }
+
+        private void DeletePerson(long id)
+        {
+            PersonFormMode = FormMode.View;
+            Person = null;
         }
     }
 }

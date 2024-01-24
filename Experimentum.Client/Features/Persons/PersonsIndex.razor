@@ -2,7 +2,14 @@
 @inject IPersonDataService PersonDataService
 
 <div class="container">
+
     <div class="h5 text-muted">Persons</div>
+
+    @if (PersonFormMode is not FormMode.Add && PersonFormMode is not FormMode.Edit)
+    {
+        <button class="btn btn-primary" @onclick="AddPerson">Add Person</button>
+    }
+
 
     @if (PersonFormMode is not FormMode.Add && PersonFormMode is not FormMode.Edit)
     {
@@ -11,11 +18,15 @@
             <PersonsGrid Persons="Persons"
                          OnPersonEdit="EditPerson" />
         }
+
     }
 
     @if ((PersonFormMode == FormMode.Add || PersonFormMode == FormMode.Edit) && Person is not null)
     {
-        <PersonEditor Person="Person" />
+        <PersonEditor FormMode="PersonFormMode"
+                      Person="Person"
+                      OnCancel="CancelEdit"
+                      OnSubmit="SavePerson" />
     }
 
 </div>

@@ -1,0 +1,30 @@
+﻿@typeparam TItem
+
+<table class="table table-hover table-borderless table-sm table-responsive">
+    <thead>
+        <tr>
+            @TableHeader
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Items)
+        {
+            <tr class="edit-row" @key="item" @onclick="() => EditAsync(item)">
+                @RowTemplate(item)
+                <td class="edit-icon">
+                    <i class="bi bi-pencil"></i>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    .edit-row:hover .edit-icon {
+        visibility: visible;
+    }
+
+    .edit-icon {
+        visibility: hidden;
+    }
+</style>

@@ -1,11 +1,12 @@
 ﻿using CSharpFunctionalExtensions;
-using Entity = Experimentum.Domain.Abstractions.Entity;
+using Experimentum.Domain.Abstractions;
 
 namespace Experimentum.Domain.Features
 {
-    public class Person : Entity
+    public class Person : Contactable
     {
-        public static readonly string RequiredMessage = "Please include all required items.";
+        public static readonly string EmailRequiredMessage = "Please enter a valid email address.";
+        public static readonly string NameRequiredMessage = "Please enter a Name.";
         public static readonly string InvalidBirthdayMessage = $"Birth date was invalid";
         public static readonly string InvalidValueMessage = $"Value was invalid";
         public static readonly int FavoriteColorMinimumLength = 3;
@@ -19,7 +20,8 @@ namespace Experimentum.Domain.Features
         public string FavoriteColor { get; private set; }
         public Email Email { get; private set; }
 
-        private Person(PersonName name, Gender gender, DateTime? birthday, string favoriteColor, Email email)
+        private Person(PersonName name, Gender gender, DateTime? birthday, string favoriteColor, Email email, List<Phone> phones)
+            : base(phones)
         {
             Name = name;
             Gender = gender;
@@ -28,33 +30,41 @@ namespace Experimentum.Domain.Features
             Email = email;
         }
 
-        public static Result<Person> Create(PersonName name, Gender gender, DateTime? birthday, string favoriteColor, Email email)
+        public static Result<Person> Create(PersonName name,
+            Gender gender,
+            DateTime? birthday,
+            string favoriteColor,
+            Email email,
+            List<Phone>? phones = null)
         {
+            var errors = new List<string>();
+
             if (name is null)
-                return Result.Failure<Person>(RequiredMessage);
+                errors.Add(NameRequiredMessage);
 
             if (!Enum.IsDefined(typeof(Gender), gender))
-                return Result.Failure<Person>(RequiredMessage);
+                errors.Add(RequiredMessage);
 
-            if (birthday.HasValue)
-                if (!IsValidAge(birthday))
-                    return Result.Failure<Person>(InvalidBirthdayMessage);
+            if (birthday.HasValue && !IsValidAgeOn(birthday))
+                errors.Add(InvalidBirthdayMessage);
 
             favoriteColor = (favoriteColor ?? string.Empty).Trim();
-
             if (favoriteColor.Length < FavoriteColorMinimumLength)
-                return Result.Failure<Person>(FavoriteColorMinimumLengthMessage);
+                errors.Add(FavoriteColorMinimumLengthMessage);
 
             if (favoriteColor.Length > FavoriteColorMaximumLength)
-                return Result.Failure<Person>(FavoriteColorMaximumLengthMessage);
+                errors.Add(FavoriteColorMaximumLengthMessage);
 
             if (email is null)
-                return Result.Failure<Person>(RequiredMessage);
+                errors.Add(EmailRequiredMessage);
 
-            return Result.Success(new Person(name, gender, birthday, favoriteColor, email));
+            if (errors.Count > 0)
+                return Result.Failure<Person>(string.Join("; ", errors));
 
+            return Result.Success(new Person(name, gender, birthday, favoriteColor, email, phones));
         }
-        protected static bool IsValidAge(DateTime? birthDate)
+
+        public static bool IsValidAgeOn(DateTime? birthDate)
         {
             if (birthDate is null)
                 return false;
@@ -77,7 +87,7 @@ namespace Experimentum.Domain.Features
         public Result<PersonName> SetName(PersonName name)
         {
             if (name is null)
-                return Result.Failure<PersonName>(RequiredMessage);
+                return Result.Failure<PersonName>(NameRequiredMessage);
 
             return Result.Success(Name = name);
         }
@@ -92,7 +102,7 @@ namespace Experimentum.Domain.Features
 
         public Result<DateTime?> SetBirthday(DateTime? birthday)
         {
-            if (!IsValidAge(birthday))
+            if (!IsValidAgeOn(birthday))
                 return Result.Failure<DateTime?>(InvalidBirthdayMessage);
 
             return Result.Success(Birthday = birthday);
@@ -101,22 +111,27 @@ namespace Experimentum.Domain.Features
         public Result<Email> SetEmail(Email email)
         {
             if (email is null)
-                return Result.Failure<Email>(RequiredMessage);
+                return Result.Failure<Email>(EmailRequiredMessage);
 
             return Result.Success(Email = email);
         }
 
         public Result<string> SetFavoriteColor(string favoriteColor)
         {
+            var errors = new List<string>();
             favoriteColor = (favoriteColor ?? string.Empty).Trim();
 
             if (favoriteColor.Length < FavoriteColorMinimumLength)
-                return Result.Failure<string>(FavoriteColorMinimumLengthMessage);
+                errors.Add(FavoriteColorMinimumLengthMessage);
 
             if (favoriteColor.Length > FavoriteColorMaximumLength)
-                return Result.Failure<string>(FavoriteColorMinimumLengthMessage);
+                errors.Add(FavoriteColorMaximumLengthMessage);
 
-            return Result.Success(FavoriteColor = favoriteColor);
+            if (errors.Count > 0)
+                return Result.Failure<string>(string.Join("; ", errors));
+
+            FavoriteColor = favoriteColor;
+            return Result.Success(FavoriteColor);
         }
 
         protected Person() { }

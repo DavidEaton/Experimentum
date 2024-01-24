@@ -1,7 +1,15 @@
 ﻿@page "/"
+@inject NavigationManager NavigationManager
 
 <PageTitle>Experimentium</PageTitle>
 
 <h1 class="text-info">Hello, Experimenter!</h1>
 
-<PersonsIndex></PersonsIndex>
+<button class="btn btn-primary" @onclick="NavigateToIndex">Go to business</button>
+
+@code {
+    private void NavigateToIndex()
+    {
+        NavigationManager.NavigateTo("/business");
+    }
+}

@@ -45,6 +45,31 @@ namespace Experimentum.Api.Migrations
                     b.ToTable("Person", "dbo");
                 });
 
+            modelBuilder.Entity("Experimentum.Domain.Features.Phone", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("PersonId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("PhoneType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("Phone");
+                });
+
             modelBuilder.Entity("Experimentum.Domain.Features.Person", b =>
                 {
                     b.OwnsOne("Experimentum.Domain.Features.Email", "Email", b1 =>
@@ -102,6 +127,18 @@ namespace Experimentum.Api.Migrations
 
                     b.Navigation("Name")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Experimentum.Domain.Features.Phone", b =>
+                {
+                    b.HasOne("Experimentum.Domain.Features.Person", null)
+                        .WithMany("Phones")
+                        .HasForeignKey("PersonId");
+                });
+
+            modelBuilder.Entity("Experimentum.Domain.Features.Person", b =>
+                {
+                    b.Navigation("Phones");
                 });
 #pragma warning restore 612, 618
         }

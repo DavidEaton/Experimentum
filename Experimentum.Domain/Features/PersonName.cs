@@ -6,8 +6,8 @@ namespace Experimentum.Domain.Features
     {
         public static readonly int MinimumLength = 1;
         public static readonly int MaximumLength = 255;
-        public static readonly string InvalidLengthMessage = $"Must be between {MinimumLength} character(s) {MaximumLength} and in length";
-        public static readonly string RequiredMessage = $"Please enter all required items";
+        public static readonly string InvalidLengthMessage = $"First, last and middle names must be between {MinimumLength} and {MaximumLength} character(s) in length.";
+        public static readonly string RequiredMessage = $"Please enter a valid Name; first and last name are required.";
 
         private PersonName(string lastName, string firstName, string middleName = null)
         {

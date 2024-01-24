@@ -1,6 +1,7 @@
 ﻿using Experimentum.Domain.Features;
 using Experimentum.Shared.Features.Emails;
 using Experimentum.Shared.Features.Persons.PersonNames;
+using Experimentum.Shared.Features.Phones;
 
 namespace Experimentum.Shared.Features.Persons
 {
@@ -12,5 +13,6 @@ namespace Experimentum.Shared.Features.Persons
         public DateTime? Birthday { get; set; }
         public string FavoriteColor { get; set; }
         public EmailResponse Email { get; set; }
+        public List<PhoneResponse> Phones { get; set; } = new();
     }
 }
