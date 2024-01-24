@@ -47,5 +47,10 @@ namespace Experimentum.Shared.Features.Phones
                     Number = phone.Number,
                     PhoneType = phone.PhoneType
                 };
+
+        public static Phone? ToREntity(this PhoneRequest phone) =>
+            phone is null
+                ? null
+                : Phone.Create(phone.Number, phone.PhoneType).Value;
     }
 }
