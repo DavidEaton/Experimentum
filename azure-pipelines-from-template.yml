@@ -15,12 +15,20 @@ steps:
     version: '$(dotnetSdkVersion)'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Restore NuGet packages'
   inputs:
     command: 'restore'
     projects: '**/*.csproj'
     feedsToUse: 'config'
     nugetConfigPath: 'nuget.config'
     externalFeedCredentials: 'Telerik Nuget'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build the project - $(buildConfiguration)'
+  inputs:
+    command: 'build'
+    arguments: '--no-restore --configuration $(buildConfiguration)'
+    projects: '**/*.csproj'
 
 - task: DotNetCoreCLI@2
   displayName: 'Run unit tests - $(buildConfiguration)'
