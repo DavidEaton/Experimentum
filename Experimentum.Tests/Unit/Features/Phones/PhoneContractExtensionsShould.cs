@@ -189,5 +189,11 @@ namespace Experimentum.Tests.Unit.Features.Phones
 
             result.Should().BeNull();
         }
+
+        [Fact]
+        public void Fail_test_to_demonstrate_pipeline_test_Failure()
+        {
+            true.Should().BeFalse();
+        }
     }
 }
