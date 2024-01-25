@@ -15,27 +15,13 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: NuGetToolInstaller@1
-
-- task: NuGetAuthenticate@1
-  displayName: 'Telerik Nuget Authentication'
+-task: DotNetCoreCLI@2
   inputs:
-    nuGetServiceConnections: 'Telerik Nuget'
-
-- task: NuGetToolInstaller@1
-  displayName: 'Install NuGet Tool'
-
-- task: NuGetCommand@2
-  displayName: 'Install NuGet Packages'
-  inputs:
-    restoreSolution: '**/*.sln'
+    command: 'restore'
+    projects: '$(clientProjectPath), $(apiProjectPath)'
     feedsToUse: 'config'
     nugetConfigPath: 'nuget.config'
     externalFeedCredentials: 'Telerik Nuget'
-    
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
 
 - task: VSBuild@1
   inputs:
