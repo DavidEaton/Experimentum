@@ -32,6 +32,7 @@ steps:
     feedsToUse: 'config'
     nugetConfigPath: 'nuget.config'
     externalFeedCredentials: 'Telerik Nuget'
+    
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
