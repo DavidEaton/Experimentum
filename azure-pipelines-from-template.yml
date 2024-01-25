@@ -4,12 +4,21 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- master
+- '*'
 
 pool:
   vmImage: 'windows-latest'
 
+  variables:
+  buildConfiguration: 'Release'
+  dotnetSdkVersion: '6.x'
+
 steps:
+- task: UseDotNet@2
+  displayName: 'Use .NET SDK $(dotnetSdkVersion)'
+  inputs:
+    version: '$(dotnetSdkVersion)'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
@@ -17,3 +26,11 @@ steps:
     feedsToUse: 'config'
     nugetConfigPath: 'nuget.config'
     externalFeedCredentials: 'Telerik Nuget'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Run unit tests - $(buildConfiguration)'
+  inputs:
+    command: 'test'
+    arguments: '--no-build --configuration $(buildConfiguration)'
+    publishTestResults: true
+    projects: '**/*.Tests.csproj'
