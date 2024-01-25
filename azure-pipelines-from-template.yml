@@ -17,6 +17,21 @@ variables:
 steps:
 - task: NuGetToolInstaller@1
 
+- task: NuGetAuthenticate@1
+  displayName: 'Telerik Nuget Authentication'
+  inputs:
+    nuGetServiceConnections: 'Telerik Nuget'
+
+- task: NuGetToolInstaller@1
+  displayName: 'Install NuGet Tool'
+
+- task: NuGetCommand@2
+  displayName: 'Install NuGet Packages'
+  inputs:
+    restoreSolution: '**/*.sln'
+    feedsToUse: 'config'
+    nugetConfigPath: 'nuget.config'
+    externalFeedCredentials: 'Telerik Nuget'
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
