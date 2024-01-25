@@ -37,3 +37,11 @@ steps:
     arguments: '--no-build --configuration $(buildConfiguration)'
     publishTestResults: true
     projects: '**/*.Tests.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Publish the project - $(buildConfiguration)'
+  inputs:
+    command: 'publish'
+    arguments: '--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    projects: '**/*.csproj'
+    zipAfterPublish: true
