@@ -21,7 +21,7 @@ steps:
     projects: '**/*.csproj'
     feedsToUse: 'config'
     nugetConfigPath: 'nuget.config'
-    externalFeedCredentials: 'Telerik Nuget'
+    externalFeedCredentials: 'TelerikWithNugetKey'
 
 - task: DotNetCoreCLI@2
   displayName: 'Build the project - $(buildConfiguration)'
