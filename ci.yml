@@ -1,6 +1,10 @@
 trigger:
 - '*'
 
+paths:
+    exclude:
+    - docs/*
+
 pool:
   vmImage: 'windows-latest'
 
@@ -41,7 +45,7 @@ steps:
     command: 'restore'
     projects: '**/*.csproj'
 
-- template: /build.yml
+- template: /build.yml # Even tho build.yml is located in the templates folder, the path is root of the repository
   parameters:
     buildConfiguration: '$(buildConfiguration)'
 
