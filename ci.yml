@@ -41,7 +41,7 @@ steps:
     command: 'restore'
     projects: '**/*.csproj'
 
-- template: templates/build.yml
+- template: /build.yml
   parameters:
     buildConfiguration: '$(buildConfiguration)'
 
