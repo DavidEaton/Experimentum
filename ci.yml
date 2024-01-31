@@ -1,9 +1,10 @@
 trigger:
-- '*'
-
-paths:
+  branches:
+    include:
+    - '*'     # build all branches
+  paths:
     exclude:
-    - docs/*
+    - docs/*  # exclude the docs folder
 
 pool:
   vmImage: 'windows-latest'
