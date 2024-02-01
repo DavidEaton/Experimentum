@@ -4,7 +4,7 @@ trigger:
     - '*'     # build all branches
   paths:
     exclude:
-    - /docs/*  # exclude the docs folder
+    - docs/*  # exclude the docs folder
 
 pool:
   vmImage: 'windows-latest'
