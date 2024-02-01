@@ -16,12 +16,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{300BA97B-A186-46E7-AC7C-44BED73FCE27}"
 	ProjectSection(SolutionItems) = preProject
 		nuget.config = nuget.config
+		docs\Readme.md = docs\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{2C91185E-65AF-4C9E-A8CA-DC9A70160461}"
-	ProjectSection(SolutionItems) = preProject
-		docs\Readme.md = docs\Readme.md
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ci", "ci", "{569D8FF8-4404-4878-AFE5-49F09CF98FAA}"
 	ProjectSection(SolutionItems) = preProject
