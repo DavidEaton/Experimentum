@@ -18,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		nuget.config = nuget.config
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{2C91185E-65AF-4C9E-A8CA-DC9A70160461}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{2C91185E-65AF-4C9E-A8CA-DC9A70160461}"
 	ProjectSection(SolutionItems) = preProject
 		docs\Readme.md = docs\Readme.md
 	EndProjectSection
