@@ -10,3 +10,4 @@ A _pull request (PR)_ build is a build that runs when you open a pull request or
 
 You can configure your build to run on specific branches, or to run only on pull requests.
 
+![Git Hub Flow](../git-hub-flow.png)
