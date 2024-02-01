@@ -15,18 +15,22 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Experimentum.Tests", "Exper
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{300BA97B-A186-46E7-AC7C-44BED73FCE27}"
 	ProjectSection(SolutionItems) = preProject
-		ci.yml = ci.yml
 		nuget.config = nuget.config
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{E1B07720-56AB-4FAD-B627-7FCFE7574A7C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ci", "Ci", "{AB155AA9-35AC-4D94-8D79-B5BC94879305}"
 	ProjectSection(SolutionItems) = preProject
-		build.yml = build.yml
+		ci\ci.yml = ci\ci.yml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{646B8B7D-D7BD-4BD5-A64F-799037700AA0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{2C91185E-65AF-4C9E-A8CA-DC9A70160461}"
 	ProjectSection(SolutionItems) = preProject
-		Readme.md = Readme.md
+		docs\Readme.md = docs\Readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{1CB260D9-AF1B-4E3F-83F9-83C9425EFEA2}"
+	ProjectSection(SolutionItems) = preProject
+		ci\templates\build.yml = ci\templates\build.yml
 	EndProjectSection
 EndProject
 Global
@@ -60,8 +64,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{E1B07720-56AB-4FAD-B627-7FCFE7574A7C} = {300BA97B-A186-46E7-AC7C-44BED73FCE27}
-		{646B8B7D-D7BD-4BD5-A64F-799037700AA0} = {300BA97B-A186-46E7-AC7C-44BED73FCE27}
+		{AB155AA9-35AC-4D94-8D79-B5BC94879305} = {300BA97B-A186-46E7-AC7C-44BED73FCE27}
+		{2C91185E-65AF-4C9E-A8CA-DC9A70160461} = {300BA97B-A186-46E7-AC7C-44BED73FCE27}
+		{1CB260D9-AF1B-4E3F-83F9-83C9425EFEA2} = {AB155AA9-35AC-4D94-8D79-B5BC94879305}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {16B182BC-7E0D-423D-AE05-BC280E46139E}
