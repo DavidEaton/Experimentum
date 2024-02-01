@@ -18,20 +18,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		nuget.config = nuget.config
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ci", "Ci", "{AB155AA9-35AC-4D94-8D79-B5BC94879305}"
-	ProjectSection(SolutionItems) = preProject
-		ci\ci-old.yml = ci\ci-old.yml
-		ci.yml = ci.yml
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{2C91185E-65AF-4C9E-A8CA-DC9A70160461}"
 	ProjectSection(SolutionItems) = preProject
 		docs\Readme.md = docs\Readme.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{1CB260D9-AF1B-4E3F-83F9-83C9425EFEA2}"
-	ProjectSection(SolutionItems) = preProject
-		ci\templates\build.yml = ci\templates\build.yml
 	EndProjectSection
 EndProject
 Global
@@ -65,9 +54,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{AB155AA9-35AC-4D94-8D79-B5BC94879305} = {300BA97B-A186-46E7-AC7C-44BED73FCE27}
 		{2C91185E-65AF-4C9E-A8CA-DC9A70160461} = {300BA97B-A186-46E7-AC7C-44BED73FCE27}
-		{1CB260D9-AF1B-4E3F-83F9-83C9425EFEA2} = {AB155AA9-35AC-4D94-8D79-B5BC94879305}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {16B182BC-7E0D-423D-AE05-BC280E46139E}
