@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/Janco-Experiments/Experimentum%20-%20Delivery%20Plans/_apis/build/status%2Fci%2Fjancoyooper.experimentum?branchName=azure-pipelines-ci)](https://dev.azure.com/Janco-Experiments/Experimentum%20-%20Delivery%20Plans/_build/latest?definitionId=9&branchName=azure-pipelines-ci)
+
 **Case Sensitivity**: Verify that the case of all paths and filenames in the `ci.yml` matches the actual case in the Bitbucket repository.
 
 By default, a build is triggered when a change is pushed to any file on any branch.
