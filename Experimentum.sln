@@ -20,7 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ci", "Ci", "{AB155AA9-35AC-4D94-8D79-B5BC94879305}"
 	ProjectSection(SolutionItems) = preProject
-		ci\ci.yml = ci\ci.yml
+		ci\ci-old.yml = ci\ci-old.yml
+		ci.yml = ci.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{2C91185E-65AF-4C9E-A8CA-DC9A70160461}"
